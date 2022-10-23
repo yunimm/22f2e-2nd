@@ -11,10 +11,10 @@ function App() {
   return (
     <div className="App">
       <div className="h-screen bg-gray-200">
-        <div className="flex w-full h-screen">
-          <div className="w-[86px] h-screen bg-gray-500">
-            <div className="flex flex-col justify-between gap-56">
-              <div className="flex flex-col justify-center items-center pt-[18px] gap-[18px]">
+        <div className="flex">
+          <div className="flex h-screen">
+            <div className="w-[86px] bg-black flex flex-col justify-between h-full py-5 md:bg-red-600 xl:bg-green-500">
+              <div className="flex flex-col justify-center items-center gap-[18px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -65,7 +65,7 @@ function App() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-9 h-9 bg-white rounded-[10px]"
+                  className="w-8 h-8 bg-white rounded-[10px]"
                 >
                   <path
                     strokeLinecap="round"
@@ -77,7 +77,7 @@ function App() {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="w-9 h-9 bg-white rounded-[10px]"
+                  className="w-8 h-8 bg-white rounded-[10px]"
                 >
                   <path
                     fillRule="evenodd"
@@ -85,29 +85,35 @@ function App() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <img className="w-9 h-9" src={userImage} alt="user's image" />
+                <img
+                  className="w-[42px] h[42px]"
+                  src={userImage}
+                  alt="user's image"
+                />
               </div>
             </div>
           </div>
-          <div className="w-full h-[72px] bg-green-300">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 text-[#C0D2DD]"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-              />
-            </svg>
-
-            <button className="rounded-[10px] bg-[#C0D2DD] py-2 px-3 text-white">
-              下一步
-            </button>
+          <div className="flex flex-col w-full">
+            <div className="w-full h-[72px] bg-white px-10 flex items-center justify-between drop-shadow-md">
+              <div />
+              <span className="font-medium text-[#5C6B72]">united</span>
+              <div className="flex justify-end items-center h-full gap-2.5">
+                {/* <button className="rounded-[10px] bg-white py-2 px-3 text-black border">
+                  返回
+                </button> */}
+                <button className="rounded-[10px] bg-[#C0D2DD] py-2 px-3 text-white disabled:bg-[#DEDEDE] disabled:text-white" disabled>
+                  下一步
+                </button>
+              </div>
+            </div>
+            <ul className="flex justify-between">
+              <li className="bg-[#DEE1E3] w-1/3 text-center border-b-[6px] border-[#5C6B72] py-2.5">
+                <span>1</span>
+                <span>上傳簽屬檔案</span>
+              </li>
+              <li className="bg-red-300 w-1/3 text-center">2</li>
+              <li className="bg-red-700 w-1/3 text-center">3</li>
+            </ul>
           </div>
         </div>
       </div>
