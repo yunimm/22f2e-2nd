@@ -96,24 +96,27 @@ function App() {
           <div className="flex flex-col w-full">
             <div className="w-full h-[72px] bg-white px-10 flex items-center justify-between drop-shadow-md">
               <div />
-              <span className="font-medium text-[#5C6B72]">united</span>
+              <span className="text-gray-dark">united</span>
               <div className="flex justify-end items-center h-full gap-2.5">
                 {/* <button className="rounded-[10px] bg-white py-2 px-3 text-black border">
                   返回
                 </button> */}
-                <button className="rounded-[10px] bg-[#C0D2DD] py-2 px-3 text-white disabled:bg-[#DEDEDE] disabled:text-white" disabled>
-                  下一步
+                <button className="btn-black">
+                  <span className="font-medium">下一步</span>
                 </button>
               </div>
             </div>
             <ul className="flex justify-between">
-              <li className="bg-[#DEE1E3] w-1/3 text-center border-b-[6px] border-[#5C6B72] py-2.5">
+              <li className="bg-[#DEE1E3] w-1/3 text-center border-b-[6px] border-gray-dark py-2.5">
                 <span>1</span>
                 <span>上傳簽屬檔案</span>
               </li>
               <li className="bg-red-300 w-1/3 text-center">2</li>
               <li className="bg-red-700 w-1/3 text-center">3</li>
             </ul>
+            <div>
+              <h1>123456</h1>
+            </div>
           </div>
         </div>
       </div>

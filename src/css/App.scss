@@ -2,6 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  font-size: 2rem;
+  color: blue;
+}
+h2 {
+  font-size: 1.75rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+h4 {
+  font-size: 1.25rem;
+}
+h5 {
+  font-size: 1.125rem;
+}
+h6 {
+  font-size: 1rem;
+}
+body {
+  font-size: 0.875rem;
+}
+button {
+  font-size: 0.875rem;
+}
+.caption {
+  font-size: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 2.5rem;
+    color: red;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  h3 {
+    font-size: 1.75rem;
+  }
+  h4 {
+    font-size: 1.5rem;
+  }
+  h5 {
+    font-size: 1.25rem;
+  }
+  h6 {
+    font-size: 1.125rem;
+  }
+  body {
+    font-size: 1rem;
+  }
+  button {
+    font-size: 1rem;
+  }
+  .caption {
+    font-size: 0.875rem;
+  }
+}
+
 .sidebarBtn {
   display: flex;
   align-items: center;
@@ -11,5 +71,20 @@
   height: 110px;
   &.focus {
     background-color: #3b86dd;
+  }
+}
+.btn-black {
+  border-radius: 10px;
+  background-color: black;
+  padding: 8px 12px;
+  color: white;
+  &:hover {
+    background-color: #5c6b72;
+  }
+  &:active {
+    outline: 2px solid #c0d2dd;
+  }
+  &[disabled] {
+    background-color: #dedede;
   }
 }

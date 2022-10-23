@@ -11,7 +11,31 @@ module.exports = {
       // '2xl': '1536px',
       // // => @media (min-width: 1536px) { ... }
     },
-    extend: {},
+    colors: {
+      blue: {
+        light: '#EBF5FF',
+        DEFAULT: '#3B86DD',
+        dark: '#C0D2DD',
+      },
+      gray: {
+        light: '#EEEEEE',
+        DEFAULT: '#DEDEDE',
+        dark: '#5C6B72',
+      },
+      red: {
+        DEFAULT: '#FB5C5C',
+      },
+      yellow: {
+        DEFAULT: '#FBDC5C',
+      },
+      white: {
+        DEFAULT: '#FFFFFF',
+      },
+      black: {
+        DEFAULT: '#000000',
+      },
+      extend: {},
+    },
+    plugins: [],
   },
-  plugins: [],
 };
