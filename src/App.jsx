@@ -5,6 +5,9 @@ import logoDark from '../src/assets/logo_dark_2x.png';
 import signIcon from '../src/assets/createSign_2x.png';
 import userImage from '../src/assets/userImage_2x.png';
 import moon from '../src/assets/moon_2x.png';
+import camera from '../src/assets/camera_2x.png';
+import file from '../src/assets/file_2x.png';
+import image from '../src/assets/image_2x.png';
 import cx from 'classnames';
 
 function App() {
@@ -13,16 +16,16 @@ function App() {
   const [step, setStep] = useState('1');
   return (
     <div className="App">
-      <div className="h-screen bg-gray-200">
-        <div className="flex relative">
+      <div className="bg-gray-200 h-screen">
+        <div className="relative flex">
           <div
             className={cx(
-              'h-screen flex absolute z-10',
+              'absolute z-10 flex h-screen',
               !showHamburger && 'hidden',
             )}
           >
-            <div className="w-[86px] bg-black flex flex-col justify-between h-full py-5 md:bg-red-600 xl:bg-green-500">
-              <div className="flex flex-col justify-center items-center gap-[18px]">
+            <div className="md:bg-red-600 xl:bg-green-500 flex h-full w-[86px] flex-col justify-between bg-black py-5">
+              <div className="flex flex-col items-center justify-center gap-[18px]">
                 <svg
                   onClick={() => setShowHamburger(false)}
                   xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +33,7 @@ function App() {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="w-9 h-9 text-[#C0D2DD] cursor-pointer"
+                  className="h-9 w-9 cursor-pointer text-[#C0D2DD]"
                 >
                   <path
                     strokeLinecap="round"
@@ -48,7 +51,7 @@ function App() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-9 h-9 text-white"
+                    className="h-9 w-9 text-white"
                   >
                     <path
                       strokeLinecap="round"
@@ -67,14 +70,14 @@ function App() {
                   <span className="text-white">開始簽署</span>
                 </button>
               </div>
-              <div className="flex flex-col justify-center items-center gap-2.5">
+              <div className="flex flex-col items-center justify-center gap-2.5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-8 h-8 bg-white rounded-[10px]"
+                  className="h-8 w-8 rounded-[10px] bg-white"
                 >
                   <path
                     strokeLinecap="round"
@@ -86,7 +89,7 @@ function App() {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="w-8 h-8 bg-white rounded-[10px]"
+                  className="h-8 w-8 rounded-[10px] bg-white"
                 >
                   <path
                     fillRule="evenodd"
@@ -95,19 +98,19 @@ function App() {
                   />
                 </svg>
                 <img
-                  className="w-[42px] h[42px]"
+                  className="h[42px] w-[42px]"
                   src={userImage}
                   alt="user's image"
                 />
               </div>
             </div>
           </div>
-          <div className="flex flex-col w-full">
-            <div className="w-full h-[72px] bg-white px-3 flex items-center justify-between drop-shadow-md">
+          <div className="flex h-screen w-full flex-col">
+            <div className="flex h-[72px] w-full items-center justify-between bg-white px-3 drop-shadow-md">
               <div className={cx(!showHamburger && 'hidden')} />
               <div
                 className={cx(
-                  'items-center gap-2 flex',
+                  'flex items-center gap-2',
                   showHamburger && 'hidden',
                 )}
               >
@@ -118,7 +121,7 @@ function App() {
                   viewBox="0 0 24 24"
                   strokeWidth={2}
                   stroke="currentColor"
-                  className="w-9 h-9 text-[#C0D2DD] cursor-pointer"
+                  className="h-9 w-9 cursor-pointer text-[#C0D2DD]"
                 >
                   <path
                     strokeLinecap="round"
@@ -129,11 +132,11 @@ function App() {
                 <img
                   src={logoDark}
                   alt="logo-dark on screen"
-                  className="w-[43.01px] h-9"
+                  className="h-9 w-[43.01px]"
                 />
               </div>
               <span className="text-gray-dark">united</span>
-              <div className="flex justify-end items-center h-full gap-2.5">
+              <div className="flex h-full items-center justify-end gap-2.5">
                 {/* <button className="rounded-[10px] bg-white py-2 px-3 text-black border">
                   返回
                 </button> */}
@@ -143,7 +146,7 @@ function App() {
               </div>
             </div>
             <ul className="flex justify-between">
-              <li className="bg-[#DEE1E3] w-1/3 text-center border-b-[6px] border-gray-dark py-2.5">
+              <li className="w-1/3 border-b-[6px] border-gray-dark bg-[#DEE1E3] py-2.5 text-center">
                 <span className="step1circle" />
                 <span>上傳簽屬檔案</span>
               </li>
@@ -156,9 +159,46 @@ function App() {
                 <span>簽署完成</span>
               </li>
             </ul>
-            <div>
-              <h1>123456</h1>
-            </div>
+            <main className="main-wrapper">
+              <div className="main-wrapper__content">
+                <h4 className="text-center text-gray-dark">上傳簽署檔案</h4>
+                <div className="mt-3 flex h-[559px] w-full flex-col gap-5">
+                  <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
+                    <div className="flex flex-col items-center justify-center gap-4">
+                      <img
+                        src={camera}
+                        alt="camera icon on screen"
+                        className="h-10"
+                      />
+                      <button className="btn-black w-[136px]">開啟相機</button>
+                    </div>
+                  </div>
+                  <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
+                    <div className="flex flex-col items-center justify-center gap-4">
+                      <img src={image} alt="image on screen" className="h-10" />
+                      <label className="btn-black flex w-[136px] items-center justify-center">
+                        <input type="file" className="hidden" />
+                        <span>選擇照片</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
+                    <div className="flex flex-col items-center justify-center gap-4">
+                      <img
+                        src={file}
+                        alt="file icon on screen"
+                        className="h-10"
+                      />
+
+                      <label className="btn-black flex w-[136px] items-center justify-center">
+                        <input type="file" className="hidden" />
+                        <span>選擇檔案</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
           </div>
         </div>
       </div>

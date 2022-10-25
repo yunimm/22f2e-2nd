@@ -145,8 +145,8 @@ button {
   border-bottom: 6px solid #c0d2dd;
   padding: 10px 0px;
   &[data-active='true'] {
-    background-color: #FEF8DE;
-    border-bottom: 6px solid #FBDC5C;
+    background-color: #fef8de;
+    border-bottom: 6px solid #fbdc5c;
   }
 }
 .step3circle::after {
@@ -169,7 +169,20 @@ button {
     content: '3';
     font-weight: 500;
     line-height: 19px;
-    background-color: #FBDC5C;
+    background-color: #fbdc5c;
     color: white;
   }
 }
+.main-wrapper {
+  background-color: #dedede;
+  height: 100%;
+  padding: 40px 18px 56px 18px;
+  &__content {
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+  }
+}
+
