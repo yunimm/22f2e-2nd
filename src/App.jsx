@@ -10,12 +10,16 @@ import cx from 'classnames';
 function App() {
   const [focus, setFocus] = useState('1');
   const [showHamburger, setShowHamburger] = useState(false);
+  const [step, setStep] = useState('1');
   return (
     <div className="App">
       <div className="h-screen bg-gray-200">
         <div className="flex relative">
           <div
-            className={cx('h-screen flex absolute z-10', !showHamburger && 'hidden')}
+            className={cx(
+              'h-screen flex absolute z-10',
+              !showHamburger && 'hidden',
+            )}
           >
             <div className="w-[86px] bg-black flex flex-col justify-between h-full py-5 md:bg-red-600 xl:bg-green-500">
               <div className="flex flex-col justify-center items-center gap-[18px]">
@@ -140,11 +144,17 @@ function App() {
             </div>
             <ul className="flex justify-between">
               <li className="bg-[#DEE1E3] w-1/3 text-center border-b-[6px] border-gray-dark py-2.5">
-                <span>1</span>
+                <span className="step1circle" />
                 <span>上傳簽屬檔案</span>
               </li>
-              <li className="bg-red-300 w-1/3 text-center">2</li>
-              <li className="bg-red-700 w-1/3 text-center">3</li>
+              <li className="step2bg" data-active={step >= '2'}>
+                <span className="step2circle" data-active={step >= '2'} />
+                <span>進行簽署</span>
+              </li>
+              <li className="step3bg" data-active={step === '3'}>
+                <span className="step3circle" data-active={step === '3'} />
+                <span>簽署完成</span>
+              </li>
             </ul>
             <div>
               <h1>123456</h1>
