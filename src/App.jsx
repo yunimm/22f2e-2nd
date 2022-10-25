@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../src/css/App.scss';
 import logo from '../src/assets/logo_2x.png';
+import logoDark from '../src/assets/logo_dark_2x.png';
 import signIcon from '../src/assets/createSign_2x.png';
 import userImage from '../src/assets/userImage_2x.png';
 import moon from '../src/assets/moon_2x.png';
@@ -8,16 +9,18 @@ import cx from 'classnames';
 
 function App() {
   const [focus, setFocus] = useState('1');
-  const [showHamburger, setShowHamburger] = useState(true);
+  const [showHamburger, setShowHamburger] = useState(false);
   return (
     <div className="App">
       <div className="h-screen bg-gray-200">
-        <div className="flex">
-          <div className={cx('h-screen flex', showHamburger && 'hidden')}>
+        <div className="flex relative">
+          <div
+            className={cx('h-screen flex absolute z-10', !showHamburger && 'hidden')}
+          >
             <div className="w-[86px] bg-black flex flex-col justify-between h-full py-5 md:bg-red-600 xl:bg-green-500">
               <div className="flex flex-col justify-center items-center gap-[18px]">
                 <svg
-                  onClick={() => setFocus(false)}
+                  onClick={() => setShowHamburger(false)}
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -96,8 +99,35 @@ function App() {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <div className="w-full h-[72px] bg-white px-10 flex items-center justify-between drop-shadow-md">
-              <div />
+            <div className="w-full h-[72px] bg-white px-3 flex items-center justify-between drop-shadow-md">
+              <div className={cx(!showHamburger && 'hidden')} />
+              <div
+                className={cx(
+                  'items-center gap-2 flex',
+                  showHamburger && 'hidden',
+                )}
+              >
+                <svg
+                  onClick={() => setShowHamburger(true)}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-9 h-9 text-[#C0D2DD] cursor-pointer"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+                <img
+                  src={logoDark}
+                  alt="logo-dark on screen"
+                  className="w-[43.01px] h-9"
+                />
+              </div>
               <span className="text-gray-dark">united</span>
               <div className="flex justify-end items-center h-full gap-2.5">
                 {/* <button className="rounded-[10px] bg-white py-2 px-3 text-black border">
