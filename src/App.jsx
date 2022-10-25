@@ -8,14 +8,16 @@ import cx from 'classnames';
 
 function App() {
   const [focus, setFocus] = useState('1');
+  const [showHamburger, setShowHamburger] = useState(true);
   return (
     <div className="App">
       <div className="h-screen bg-gray-200">
         <div className="flex">
-          <div className="flex h-screen">
+          <div className={cx('h-screen flex', showHamburger && 'hidden')}>
             <div className="w-[86px] bg-black flex flex-col justify-between h-full py-5 md:bg-red-600 xl:bg-green-500">
               <div className="flex flex-col justify-center items-center gap-[18px]">
                 <svg
+                  onClick={() => setFocus(false)}
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
