@@ -152,6 +152,7 @@ function App() {
                 </button>
               </div>
             </div>
+            {/* 進度條 */}
             <ul className="flex justify-between">
               <li className="w-1/3 border-b-[6px] border-gray-dark bg-[#DEE1E3] py-2.5 text-center">
                 <span className="step1circle" />
@@ -166,109 +167,133 @@ function App() {
                 <span>簽署完成</span>
               </li>
             </ul>
-            <main className="main-wrapper">
-              <div className="main-wrapper__content">
-                {/* TODO:封裝元件 */}
-                {uploadFile && (
-                  <>
-                    <h4 className="text-center text-gray-dark">上傳簽署檔案</h4>
-                    <div className="mt-3 flex h-[559px] w-full flex-col gap-5">
-                      <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
-                        <div className="flex flex-col items-center justify-center gap-4">
-                          <img
-                            src={camera}
-                            alt="camera icon on screen"
-                            className="h-10"
-                          />
-                          <button className="btn-black w-[136px]">
-                            開啟相機
+
+            {step === '1' && (
+              <>
+                <main className="step1-main-wrapper">
+                  {uploadFile === null && (
+                    <>
+                      <div className="step1-main-wrapper__content">
+                        {/* TODO:封裝元件 */}
+                        <h4 className="text-center text-gray-dark">
+                          上傳簽署檔案
+                        </h4>
+                        <div className="mt-3 flex h-[559px] w-full flex-col gap-5">
+                          <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
+                            <div className="flex flex-col items-center justify-center gap-4">
+                              <img
+                                src={camera}
+                                alt="camera icon on screen"
+                                className="h-10"
+                              />
+                              <button className="btn-black w-[136px]">
+                                開啟相機
+                              </button>
+                            </div>
+                          </div>
+                          <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
+                            <div className="flex flex-col items-center justify-center gap-4">
+                              <img
+                                src={image}
+                                alt="image on screen"
+                                className="h-10"
+                              />
+                              <label className="btn-black flex w-[136px] items-center justify-center">
+                                <input type="file" className="hidden" />
+                                <span>選擇照片</span>
+                              </label>
+                            </div>
+                          </div>
+                          <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
+                            <div className="flex flex-col items-center justify-center gap-4">
+                              <img
+                                src={file}
+                                alt="file icon on screen"
+                                className="h-10"
+                              />
+
+                              <label className="btn-black flex w-[136px] items-center justify-center">
+                                <input type="file" className="hidden" />
+                                <span>選擇檔案</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  {/* TODO:封裝元件 */}
+                  {uploadFile && (
+                    <div className="step1-main-wrapper__content">
+                      <div className="relative mb-2.5 ">
+                        <p className="rounded-lg border py-2.5 px-3">
+                          上傳簽署檔案名稱.pdf
+                        </p>
+                        {/* TODO:封裝樣式 */}
+                        <button className="absolute -right-0.5 top-0 translate-y-[-1px] rounded-lg bg-red py-3 px-4 text-white ring-blue-dark hover:bg-red-dark active:ring-2 disabled:bg-gray">
+                          刪除檔案
+                        </button>
+                      </div>
+
+                      <div className="relative h-[538px] rounded-[10px] border bg-[#E7E9EA] p-2.5">
+                        <span className="absolute right-2.5 rounded-md bg-black py-1.5 px-3 font-medium text-white">
+                          共三頁
+                        </span>
+                        <div className="absolute bottom-2.5 right-2.5 flex gap-1">
+                          {/* TODO:封裝樣式 */}
+                          <button className="icon-btn">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="h-6 w-6 text-white"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M3.75 12a.75.75 0 01.75-.75h15a.75.75 0 010 1.5h-15a.75.75 0 01-.75-.75z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </button>
+                          <button className="icon-btn">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="h-6 w-6 text-white"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
                           </button>
                         </div>
                       </div>
-                      <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
-                        <div className="flex flex-col items-center justify-center gap-4">
-                          <img
-                            src={image}
-                            alt="image on screen"
-                            className="h-10"
-                          />
-                          <label className="btn-black flex w-[136px] items-center justify-center">
-                            <input type="file" className="hidden" />
-                            <span>選擇照片</span>
-                          </label>
-                        </div>
-                      </div>
-                      <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
-                        <div className="flex flex-col items-center justify-center gap-4">
-                          <img
-                            src={file}
-                            alt="file icon on screen"
-                            className="h-10"
-                          />
-
-                          <label className="btn-black flex w-[136px] items-center justify-center">
-                            <input type="file" className="hidden" />
-                            <span>選擇檔案</span>
-                          </label>
-                        </div>
-                      </div>
                     </div>
-                  </>
-                )}
-
-                {/* TODO:封裝元件 */}
-                {step === '1' && (
-                  <>
-                    <div className="relative mb-2.5">
-                      <p className="rounded-lg border py-2.5 px-3">
-                        上傳簽署檔案名稱.pdf
-                      </p>
-                      {/* TODO:封裝樣式 */}
-                      <button className="absolute -right-0.5 top-0 translate-y-[-1px] rounded-lg bg-red py-3 px-4 text-white ring-blue-dark hover:bg-red-dark active:ring-2 disabled:bg-gray">
-                        刪除檔案
-                      </button>
-                    </div>
-
-                    <div className="relative h-[538px] rounded-[10px] border bg-[#E7E9EA] p-2.5">
-                      <span className="absolute right-2.5 rounded-md bg-black py-1.5 px-3 font-medium text-white">
-                        共三頁
-                      </span>
-                      <div className="absolute bottom-2.5 right-2.5 flex gap-1">
-                        {/* TODO:封裝樣式 */}
-                        <button className="icon-btn">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            className="h-6 w-6 text-white"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M3.75 12a.75.75 0 01.75-.75h15a.75.75 0 010 1.5h-15a.75.75 0 01-.75-.75z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </button>
-                        <button className="icon-btn">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            className="h-6 w-6 text-white"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </>
-                )}
+                  )}
+                </main>
+              </>
+            )}
+            {step > '1' && (
+              <div className="h-full bg-gray py-2.5 px-5">
+                <button className="icon-btn w-8">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-6 w-6 text-white"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
               </div>
-            </main>
+            )}
           </div>
         </div>
       </div>
