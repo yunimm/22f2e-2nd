@@ -185,4 +185,31 @@ button {
     padding: 20px;
   }
 }
-
+.icon-btn {
+  border-radius: 6px;
+  background-color: black;
+  padding: 4px;
+  &:hover {
+    background-color: #5c6b72;
+  }
+  &:active {
+    outline: 2px solid #c0d2dd;
+  }
+  &[disabled] {
+    background-color: #dedede;
+  }
+}
+.icon-btn-white {
+  border-radius: 6px;
+  background-color: white;
+  padding: 4px;
+  &:hover {
+    background-color: #5c6b72;
+  }
+  &:active {
+    outline: 2px solid black;
+  }
+  &[disabled] {
+    background-color: #dedede;
+  }
+}
