@@ -8,12 +8,18 @@ import moon from '../src/assets/moon_2x.png';
 import camera from '../src/assets/camera_2x.png';
 import file from '../src/assets/file_2x.png';
 import image from '../src/assets/image_2x.png';
+import sign from '../src/assets/sign_2x.png';
+import text from '../src/assets/text_2x.png';
+import star from '../src/assets/star_2x.png';
+import prev from '../src/assets/prev_2x.png';
+import next from '../src/assets/next_2x.png';
+import trash from '../src/assets/trash_2x.png';
 import cx from 'classnames';
 
 function App() {
   const [focus, setFocus] = useState('1');
   const [showHamburger, setShowHamburger] = useState(false);
-  const [step, setStep] = useState('1');
+  const [step, setStep] = useState('2');
   const [uploadFile, setUploadFile] = useState(null);
   return (
     <div className="App">
@@ -277,22 +283,51 @@ function App() {
               </>
             )}
             {step > '1' && (
-              <div className="h-full bg-gray py-2.5 px-5">
-                <button className="icon-btn w-8">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-6 w-6 text-white"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
+              <>
+                <div className="h-full bg-gray py-2.5 px-5">
+                  <button className="icon-btn w-8">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="h-6 w-6 text-white"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <footer className="flex h-[58px] w-full justify-between bg-white py-[9px] px-5">
+                  {/* TODO:封裝樣式 */}
+                  <button className="caption flex flex-col items-center justify-center gap-1">
+                    <img src={sign} alt="icon on screen" className="w-6" />
+                    <span>簽名</span>
+                  </button>
+                  <button className="caption flex flex-col items-center justify-center gap-1">
+                    <img src={text} alt="icon on screen" className="w-6" />
+                    <span>文字</span>
+                  </button>
+                  <button className="caption flex flex-col items-center justify-center gap-1">
+                    <img src={star} alt="icon on screen" className="w-6" />
+                    <span>個人化</span>
+                  </button>
+                  <button className="caption flex flex-col items-center justify-center gap-1">
+                    <img src={prev} alt="icon on screen" className="w-6" />
+                    <span>復原</span>
+                  </button>
+                  <button className="caption flex flex-col items-center justify-center gap-1">
+                    <img src={next} alt="icon on screen" className="w-6" />
+                    <span>重作</span>
+                  </button>
+                  <button className="caption flex flex-col items-center justify-center gap-1">
+                    <img src={trash} alt="icon on screen" className="w-6" />
+                    <span>重新簽署</span>
+                  </button>
+                </footer>
+              </>
             )}
           </div>
         </div>
