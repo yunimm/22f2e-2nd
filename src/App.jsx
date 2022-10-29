@@ -15,8 +15,20 @@ import textWhite from '../src/assets/text-white_2x.png';
 import star from '../src/assets/star_2x.png';
 import starWhite from '../src/assets/star-white_2x.png';
 import cx from 'classnames';
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
-import { TrashIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowUturnLeftIcon,
+  Squares2X2Icon,
+  MoonIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/solid';
+import {
+  TrashIcon,
+  PlusCircleIcon,
+  EllipsisHorizontalIcon,
+  Bars3Icon,
+  MinusIcon,
+  PlusIcon,
+} from '@heroicons/react/24/outline';
 
 function App() {
   const [focus, setFocus] = useState('1');
@@ -38,80 +50,35 @@ function App() {
           >
             <div className="md:bg-red-600 xl:bg-green-500 flex h-full w-[86px] flex-col justify-between bg-black py-5">
               <div className="flex flex-col items-center justify-center gap-[18px]">
-                <svg
+                <XMarkIcon
                   onClick={() => setShowHamburger(false)}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
                   className="h-9 w-9 cursor-pointer text-[#C0D2DD]"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                />
                 <button
                   className={cx('sidebarBtn', { focus: focus === '1' })}
                   onClick={() => setFocus('1')}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="h-9 w-9 text-white"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-
+                  <PlusCircleIcon className="h-9 w-9 cursor-pointer text-white" />
                   <span className="text-white">開始簽署</span>
                 </button>
                 <button
                   className={cx('sidebarBtn', { focus: focus === '2' })}
                   onClick={() => setFocus('2')}
                 >
-                  <img src={signIcon} alt="signIcon on screen" />
-                  <span className="text-white">開始簽署</span>
+                  <img
+                    src={signIcon}
+                    alt="signIcon on screen"
+                    className="mb-1 w-7"
+                  />
+                  <span className="text-white">建立簽名</span>
                 </button>
               </div>
               <div className="flex flex-col items-center justify-center gap-2.5">
                 <button className="icon-btn-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="h-6 w-6 rounded-md"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                    />
-                  </svg>
+                  <EllipsisHorizontalIcon className="h-6 w-6 rounded-md" />
                 </button>
                 <button className="icon-btn-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-6 w-6 rounded-md"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <MoonIcon className="h-6 w-6 rounded-md" />
                 </button>
                 <img
                   className="h[42px] w-[42px]"
@@ -130,21 +97,10 @@ function App() {
                   showHamburger && 'hidden',
                 )}
               >
-                <svg
+                <Bars3Icon
                   onClick={() => setShowHamburger(true)}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
                   className="h-9 w-9 cursor-pointer text-[#C0D2DD]"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  />
-                </svg>
+                />
                 <img
                   src={logoDark}
                   alt="logo-dark on screen"
@@ -253,32 +209,10 @@ function App() {
                         <div className="absolute bottom-2.5 right-2.5 flex gap-1">
                           {/* TODO:封裝樣式 */}
                           <button className="icon-btn">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="currentColor"
-                              className="h-6 w-6 text-white"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M3.75 12a.75.75 0 01.75-.75h15a.75.75 0 010 1.5h-15a.75.75 0 01-.75-.75z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
+                            <MinusIcon className="h-6 w-6 text-white" />
                           </button>
                           <button className="icon-btn">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="currentColor"
-                              className="h-6 w-6 text-white"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
+                            <PlusIcon className="h-6 w-6 text-white" />
                           </button>
                         </div>
                       </div>
@@ -291,18 +225,7 @@ function App() {
               <>
                 <div className="h-full bg-gray py-2.5 px-5">
                   <button className="icon-btn w-8">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="h-6 w-6 text-white"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    <Squares2X2Icon className="text-white" />
                   </button>
                 </div>
                 <footer className="flex h-[58px] w-full items-center justify-between bg-white py-[9px]">
