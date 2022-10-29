@@ -213,3 +213,29 @@ button {
     background-color: #dedede;
   }
 }
+
+@layer components {
+  .footer-icon-btn {
+    @apply caption flex h-[58px] w-[65px] flex-col items-center justify-center gap-1;
+  }
+  .footer-icon-btn--active {
+    @apply footer-icon-btn bg-black;
+  }
+}
+
+.footer-icon-btn {
+  &[disabled] {
+    color: #dedede;
+  }
+  &.active {
+    background-color: black;
+    color: white;
+  }
+  &__svgIcon {
+    width: 20px;
+    color: black;
+    &[disabled] {
+      color: #dedede;
+    }
+  }
+}
