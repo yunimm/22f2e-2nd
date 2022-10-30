@@ -13,10 +13,10 @@ const SignModal = ({ show, setMode }) => {
           <h4 className="flex-1 text-center">簽名板</h4>
           <XMarkIcon
             onClick={() => setMode(null)}
-            className="h-5 w-5 flex-none cursor-pointer"
+            className="h-6 w-6 flex-none cursor-pointer"
           />
         </div>
-        <div className="draw h-[162px] bg-[#EBF3FC]"></div>
+        <div className="draw h-[162px] border-y border-blue-dark bg-[#EBF3FC]"></div>
         <div className="flex gap-2.5 border-b border-gray py-2.5 px-[14px]">
           <span>顏色</span>
           <span className="btn-color bg-black" />
