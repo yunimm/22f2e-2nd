@@ -73,22 +73,6 @@ button {
     background-color: #3b86dd;
   }
 }
-.btn-black {
-  padding: 8px 12px;
-  border-radius: 10px;
-  background-color: black;
-  color: white;
-  &:hover {
-    background-color: #5c6b72;
-  }
-  &:active {
-    outline: 2px solid #c0d2dd;
-  }
-  &[disabled] {
-    background-color: #dedede;
-  }
-}
-
 .step1circle::after {
   display: inline-block;
   margin-right: 4px;
@@ -221,6 +205,21 @@ button {
   .footer-icon-btn--active {
     @apply footer-icon-btn bg-black;
   }
+  .btn {
+    @apply flex h-9  items-center rounded-[10px] border py-2.5 px-3;
+  }
+  .btn-white {
+    @apply btn border-gray-dark bg-white text-black hover:border-black hover:bg-blue-dark active:ring-2 active:ring-black disabled:bg-gray disabled:text-white;
+  }
+  .btn-black {
+    @apply btn bg-black text-white hover:bg-gray-dark active:ring-2 active:ring-blue-dark disabled:bg-gray;
+  }
+  .btn-color {
+    @apply inline-block h-5 w-5 cursor-pointer rounded-full;
+  }
+  .btn-size {
+    @apply inline-block cursor-pointer rounded-full bg-black;
+  }
 }
 
 .footer-icon-btn {
@@ -239,3 +238,9 @@ button {
     }
   }
 }
+.position-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+

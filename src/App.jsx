@@ -15,6 +15,7 @@ import textWhite from '../src/assets/text-white_2x.png';
 import star from '../src/assets/star_2x.png';
 import starWhite from '../src/assets/star-white_2x.png';
 import cx from 'classnames';
+import SignModal from '../src/components/Modal/SignModal';
 import {
   ArrowUturnLeftIcon,
   Squares2X2Icon,
@@ -111,11 +112,7 @@ function App() {
               </div>
               <span className="text-gray-dark">united</span>
               <div className="flex h-full items-center justify-end gap-2.5">
-                {step > '1' && (
-                  <button className="rounded-[10px] border bg-white py-2 px-3 text-black">
-                    返回
-                  </button>
-                )}
+                {step > '1' && <button className="btn-white">返回</button>}
                 <button className="btn-black">
                   <span className="font-medium">下一步</span>
                 </button>
@@ -256,6 +253,29 @@ function App() {
                       </button>
                     </>
                   )}
+                  {/* <div className="h-[319px] rounded-[10px] bg-white drop-shadow-md">
+                    <div className="flex h-[55px] items-center justify-center py-4 px-5">
+                      <h4 className="flex-1 text-center">簽名板</h4>
+                      <XMarkIcon className="h-5 w-5 flex-none cursor-pointer" />
+                    </div>
+                    <div className="draw h-[162px] bg-[#EBF3FC]"></div>
+                    <div className="flex gap-2.5 border-b border-gray py-2.5 px-[14px]">
+                      <span>顏色</span>
+                      <span className="btn-color bg-black" />
+                      <span className="btn-color bg-[#0272A1]" />
+                      <span className="btn-color bg-[#DA2F2F]" />
+                      <span>大小</span>
+                      <div className="flex items-center gap-2.5">
+                        <span className="btn-size h-3 w-3" />
+                        <span className="btn-size h-[18px] w-[18px]" />
+                        <span className="btn-size h-6 w-6" />
+                      </div>
+                    </div>
+                    <div className="flex justify-end gap-2.5 p-2.5">
+                      <button className="btn-white border">清除</button>
+                      <button className="btn-black">完成</button>
+                    </div>
+                  </div> */}
                 </div>
                 <footer className="flex h-[58px] w-full items-center justify-between bg-white py-[9px]">
                   {/* TODO:封裝樣式 */}
@@ -343,6 +363,7 @@ function App() {
                     <span>重新簽署</span>
                   </button>
                 </footer>
+                <SignModal setMode={setMode} show={mode === 'sign'} />
               </>
             )}
           </div>
