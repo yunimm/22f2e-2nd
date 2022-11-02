@@ -23,6 +23,7 @@ import {
   Squares2X2Icon,
   MoonIcon,
   XMarkIcon,
+  ArrowDownTrayIcon,
 } from '@heroicons/react/24/solid';
 import {
   TrashIcon,
@@ -37,7 +38,7 @@ import {
 function App() {
   const [focus, setFocus] = useState('1');
   const [showHamburger, setShowHamburger] = useState(false);
-  const [step, setStep] = useState('2');
+  const [step, setStep] = useState('1');
   const [uploadFile, setUploadFile] = useState(null);
   const [mode, setMode] = useState(null);
   const [showFileList, setFileList] = useState(false);
@@ -114,10 +115,38 @@ function App() {
               </div>
               <span className="text-gray-dark">united</span>
               <div className="flex h-full items-center justify-end gap-2.5">
-                {step > '1' && <button className="btn-white">返回</button>}
-                <button className="btn-black">
-                  <span className="font-medium">下一步</span>
-                </button>
+                {step > '1' && (
+                  <button
+                    type="button"
+                    className="btn-white"
+                    onClick={() => setStep(step - 1 + '')}
+                  >
+                    返回
+                  </button>
+                )}
+                {step === '1' && (
+                  <button
+                    type="button"
+                    className="btn-black"
+                    onClick={() => setStep('2')}
+                  >
+                    <span className="font-medium">下一步</span>
+                  </button>
+                )}
+                {step === '2' && (
+                  <button
+                    type="button"
+                    className="btn-black"
+                    onClick={() => setStep('3')}
+                  >
+                    <span className="font-medium">完成</span>
+                  </button>
+                )}
+                {step === '3' && (
+                  <button type="button" className="btn-black">
+                    <span className="font-medium">新檔案</span>
+                  </button>
+                )}
               </div>
             </div>
             {/* 進度條 */}
@@ -154,7 +183,10 @@ function App() {
                                 alt="camera icon on screen"
                                 className="h-10"
                               />
-                              <button className="btn-black w-[136px]">
+                              <button
+                                type="button"
+                                className="btn-black flex w-[136px] items-center justify-center"
+                              >
                                 開啟相機
                               </button>
                             </div>
@@ -254,6 +286,17 @@ function App() {
                         <ArrowLeftIcon />
                       </button>
                     </>
+                  )}
+                  {step === '3' && (
+                    <button
+                      type="button"
+                      className="icon-btn absolute bottom-2.5 right-5 h-8 w-8 text-white"
+                      id="menu-button"
+                      aria-expanded="true"
+                      aria-haspopup="true"
+                    >
+                      <ArrowDownTrayIcon className="w-6" />
+                    </button>
                   )}
                 </div>
                 <footer className="flex h-[58px] w-full items-center justify-between bg-white py-[9px]">
