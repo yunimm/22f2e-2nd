@@ -221,7 +221,7 @@ button {
     @apply inline-block cursor-pointer rounded-full bg-black;
   }
   .btn-group {
-    @apply flex h-[40px] w-[146px] items-center gap-10 rounded border border-gray-dark py-3 px-4 hover:bg-blue-dark active:ring-2 active:ring-black disabled:bg-gray disabled:text-white disabled:border-0;
+    @apply flex h-[40px] w-[146px] items-center gap-10 rounded border border-gray-dark py-3 px-4 hover:bg-blue-dark active:ring-2 active:ring-black disabled:border-0 disabled:bg-gray disabled:text-white;
   }
 }
 

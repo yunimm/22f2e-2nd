@@ -1,39 +1,21 @@
 import React, { useState } from 'react';
-import '../src/css/App.scss';
-import logo from '../src/assets/logo_2x.png';
-import logoDark from '../src/assets/logo_dark_2x.png';
-import signIcon from '../src/assets/createSign_2x.png';
-import userImage from '../src/assets/userImage_2x.png';
-import moon from '../src/assets/moon_2x.png';
-import camera from '../src/assets/camera_2x.png';
-import file from '../src/assets/file_2x.png';
-import image from '../src/assets/image_2x.png';
+import cx from 'classnames';
 import sign from '../src/assets/sign_2x.png';
 import signWhite from '../src/assets/sign-white_2x.png';
 import text from '../src/assets/text_2x.png';
 import textWhite from '../src/assets/text-white_2x.png';
 import star from '../src/assets/star_2x.png';
 import starWhite from '../src/assets/star-white_2x.png';
-import cx from 'classnames';
 import SignModal from '../src/components/Modal/SignModal';
 import TextModal from '../src/components/Modal/TextModal';
 import PersonalModal from '../src/components/Modal/PersonalModal';
-import {
-  ArrowUturnLeftIcon,
-  Squares2X2Icon,
-  MoonIcon,
-  XMarkIcon,
-  ArrowDownTrayIcon,
-} from '@heroicons/react/24/solid';
-import {
-  TrashIcon,
-  PlusCircleIcon,
-  EllipsisHorizontalIcon,
-  Bars3Icon,
-  MinusIcon,
-  PlusIcon,
-  ArrowLeftIcon,
-} from '@heroicons/react/24/outline';
+import { Squares2X2Icon, ArrowDownTrayIcon } from '@heroicons/react/24/solid';
+import { TrashIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
+
+import SideBar from '../src/components/SideBar/SideBar';
+import Header from './components/Header/Header';
+import Step1 from '../src/components/Step1/Step1';
+// import '../src/css/App.scss';
 
 function App() {
   const [focus, setFocus] = useState('1');
@@ -42,8 +24,7 @@ function App() {
   const [uploadFile, setUploadFile] = useState(null);
   const [mode, setMode] = useState(null);
   const [showFileList, setFileList] = useState(false);
-  // const [prev, setPrev] = useState(0);
-  // const [redo, setRedo] = useState(null);
+
   return (
     <div className="App">
       <div className="bg-gray-200 h-screen">
@@ -54,101 +35,19 @@ function App() {
               !showHamburger && 'hidden',
             )}
           >
-            <div className="md:bg-red-600 xl:bg-green-500 flex h-full w-[86px] flex-col justify-between bg-black py-5">
-              <div className="flex flex-col items-center justify-center gap-[18px]">
-                <XMarkIcon
-                  onClick={() => setShowHamburger(false)}
-                  className="h-9 w-9 cursor-pointer text-[#C0D2DD]"
-                />
-                <button
-                  className={cx('sidebarBtn', { focus: focus === '1' })}
-                  onClick={() => setFocus('1')}
-                >
-                  <PlusCircleIcon className="h-9 w-9 cursor-pointer text-white" />
-                  <span className="text-white">開始簽署</span>
-                </button>
-                <button
-                  className={cx('sidebarBtn', { focus: focus === '2' })}
-                  onClick={() => setFocus('2')}
-                >
-                  <img
-                    src={signIcon}
-                    alt="signIcon on screen"
-                    className="mb-1 w-7"
-                  />
-                  <span className="text-white">建立簽名</span>
-                </button>
-              </div>
-              <div className="flex flex-col items-center justify-center gap-2.5">
-                <button className="icon-btn-white">
-                  <EllipsisHorizontalIcon className="h-6 w-6 rounded-md" />
-                </button>
-                <button className="icon-btn-white">
-                  <MoonIcon className="h-6 w-6 rounded-md" />
-                </button>
-                <img
-                  className="h[42px] w-[42px]"
-                  src={userImage}
-                  alt="user's image"
-                />
-              </div>
-            </div>
+            <SideBar
+              focus={focus}
+              setFocus={setFocus}
+              setShowHamburger={setShowHamburger}
+            />
           </div>
           <div className="flex h-screen w-full flex-col">
-            <div className="flex h-[72px] items-center justify-between bg-white px-3 drop-shadow-md">
-              <div className={cx(!showHamburger && 'hidden')} />
-              <div
-                className={cx(
-                  'flex items-center gap-2',
-                  showHamburger && 'hidden',
-                )}
-              >
-                <Bars3Icon
-                  onClick={() => setShowHamburger(true)}
-                  className="h-9 w-9 cursor-pointer text-[#C0D2DD]"
-                />
-                <img
-                  src={logoDark}
-                  alt="logo-dark on screen"
-                  className="h-9 w-[43.01px]"
-                />
-              </div>
-              <span className="text-gray-dark">united</span>
-              <div className="flex h-full items-center justify-end gap-2.5">
-                {step > '1' && (
-                  <button
-                    type="button"
-                    className="btn-white"
-                    onClick={() => setStep(step - 1 + '')}
-                  >
-                    返回
-                  </button>
-                )}
-                {step === '1' && (
-                  <button
-                    type="button"
-                    className="btn-black"
-                    onClick={() => setStep('2')}
-                  >
-                    <span className="font-medium">下一步</span>
-                  </button>
-                )}
-                {step === '2' && (
-                  <button
-                    type="button"
-                    className="btn-black"
-                    onClick={() => setStep('3')}
-                  >
-                    <span className="font-medium">完成</span>
-                  </button>
-                )}
-                {step === '3' && (
-                  <button type="button" className="btn-black">
-                    <span className="font-medium">新檔案</span>
-                  </button>
-                )}
-              </div>
-            </div>
+            <Header
+              setStep={setStep}
+              step={step}
+              setShowHamburger={setShowHamburger}
+              showHamburger={showHamburger}
+            />
             {/* 進度條 */}
             <ul className="flex justify-between">
               <li className="w-1/3 border-b-[6px] border-gray-dark bg-[#DEE1E3] py-2.5 text-center">
@@ -164,96 +63,7 @@ function App() {
                 <span>簽署完成</span>
               </li>
             </ul>
-
-            {step === '1' && (
-              <>
-                <main className="step1-main-wrapper">
-                  {uploadFile === null && (
-                    <>
-                      <div className="step1-main-wrapper__content">
-                        {/* TODO:封裝元件 */}
-                        <h4 className="text-center text-gray-dark">
-                          上傳簽署檔案
-                        </h4>
-                        <div className="mt-3 flex h-[559px] w-full flex-col gap-5">
-                          <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
-                            <div className="flex flex-col items-center justify-center gap-4">
-                              <img
-                                src={camera}
-                                alt="camera icon on screen"
-                                className="h-10"
-                              />
-                              <button
-                                type="button"
-                                className="btn-black flex w-[136px] items-center justify-center"
-                              >
-                                開啟相機
-                              </button>
-                            </div>
-                          </div>
-                          <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
-                            <div className="flex flex-col items-center justify-center gap-4">
-                              <img
-                                src={image}
-                                alt="image on screen"
-                                className="h-10"
-                              />
-                              <label className="btn-black flex w-[136px] items-center justify-center">
-                                <input type="file" className="hidden" />
-                                <span>選擇照片</span>
-                              </label>
-                            </div>
-                          </div>
-                          <div className="flex h-1/3 items-center justify-center rounded-[10px] border-2 border-dashed border-blue-dark bg-white">
-                            <div className="flex flex-col items-center justify-center gap-4">
-                              <img
-                                src={file}
-                                alt="file icon on screen"
-                                className="h-10"
-                              />
-
-                              <label className="btn-black flex w-[136px] items-center justify-center">
-                                <input type="file" className="hidden" />
-                                <span>選擇檔案</span>
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                  {/* TODO:封裝元件 */}
-                  {uploadFile && (
-                    <div className="step1-main-wrapper__content">
-                      <div className="relative mb-2.5 ">
-                        <p className="rounded-lg border py-2.5 px-3">
-                          上傳簽署檔案名稱.pdf
-                        </p>
-                        {/* TODO:封裝樣式 */}
-                        <button className="absolute -right-0.5 top-0 translate-y-[-1px] rounded-lg bg-red py-3 px-4 text-white ring-blue-dark hover:bg-red-dark active:ring-2 disabled:bg-gray">
-                          刪除檔案
-                        </button>
-                      </div>
-
-                      <div className="relative h-[538px] rounded-[10px] border bg-[#E7E9EA] p-2.5">
-                        <span className="absolute right-2.5 rounded-md bg-black py-1.5 px-3 font-medium text-white">
-                          共三頁
-                        </span>
-                        <div className="absolute bottom-2.5 right-2.5 flex gap-1">
-                          {/* TODO:封裝樣式 */}
-                          <button className="icon-btn">
-                            <MinusIcon className="h-6 w-6 text-white" />
-                          </button>
-                          <button className="icon-btn">
-                            <PlusIcon className="h-6 w-6 text-white" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </main>
-              </>
-            )}
+            <Step1 step={step} uploadFile={uploadFile} />
             {step > '1' && (
               <>
                 <div className="relative h-full bg-gray py-2.5 px-5">
