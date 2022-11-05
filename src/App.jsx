@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import SignModal from '../src/components/Modal/SignModal';
 import TextModal from '../src/components/Modal/TextModal';
@@ -10,13 +10,18 @@ import Footer from './components/Footer/Footer';
 import FileList from './components/FileList/FileList';
 import DownloadBtn from './components/DownloadBtn/DownloadBtn';
 import Stepper from './components/Stepper/Stepper';
+import SettingSignModal from './components/Modal/SettingSignModal';
 function App() {
-  const [focus, setFocus] = useState('1');
+  const [focus, setFocus] = useState('2');
   const [showHamburger, setShowHamburger] = useState(false);
   const [step, setStep] = useState('1');
   const [uploadFile, setUploadFile] = useState(null);
   const [mode, setMode] = useState(null);
   const [showFileList, setFileList] = useState(false);
+
+  useEffect(() => {
+    setShowHamburger(false);
+  }, [focus]);
 
   return (
     <div className="App">
@@ -67,6 +72,7 @@ function App() {
               </>
             )}
             {/* focus === '2' */}
+            {focus === '2' && <SettingSignModal />}
           </div>
         </div>
       </div>
