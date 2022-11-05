@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
-import sign from '../src/assets/sign_2x.png';
-import signWhite from '../src/assets/sign-white_2x.png';
-import text from '../src/assets/text_2x.png';
-import textWhite from '../src/assets/text-white_2x.png';
-import star from '../src/assets/star_2x.png';
-import starWhite from '../src/assets/star-white_2x.png';
+
 import SignModal from '../src/components/Modal/SignModal';
 import TextModal from '../src/components/Modal/TextModal';
 import PersonalModal from '../src/components/Modal/PersonalModal';
 import { Squares2X2Icon, ArrowDownTrayIcon } from '@heroicons/react/24/solid';
-import { TrashIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
-
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import SideBar from '../src/components/SideBar/SideBar';
 import Header from './components/Header/Header';
 import Step1 from '../src/components/Step1/Step1';
+import Footer from './components/Footer/Footer';
 // import '../src/css/App.scss';
 
 function App() {
@@ -109,92 +104,7 @@ function App() {
                     </button>
                   )}
                 </div>
-                <footer className="flex h-[58px] w-full items-center justify-between bg-white py-[9px]">
-                  {/* TODO:封裝樣式 */}
-
-                  {/* default type */}
-                  {mode !== 'sign' && (
-                    <button
-                      onClick={() => setMode('sign')}
-                      className="footer-icon-btn"
-                    >
-                      <img src={sign} alt="icon on screen" className="w-5" />
-                      <span>簽名</span>
-                    </button>
-                  )}
-                  {/* mode = sign */}
-                  {mode === 'sign' && (
-                    <button className="footer-icon-btn--active">
-                      <img
-                        src={signWhite}
-                        alt="icon on screen"
-                        className="w-5"
-                      />
-                      <span className="text-white">簽名</span>
-                    </button>
-                  )}
-                  {/* default type */}
-                  {mode !== 'text' && (
-                    <button
-                      onClick={() => setMode('text')}
-                      className="footer-icon-btn"
-                    >
-                      <img src={text} alt="icon on screen" className="w-5" />
-                      <span>文字</span>
-                    </button>
-                  )}
-                  {/* mode = text */}
-                  {mode === 'text' && (
-                    <button className="footer-icon-btn--active">
-                      <img
-                        src={textWhite}
-                        alt="icon on screen"
-                        className="w-5"
-                      />
-                      <span className="text-white">文字</span>
-                    </button>
-                  )}
-                  {/* default type */}
-                  {mode !== 'personal' && (
-                    <button
-                      className="footer-icon-btn"
-                      onClick={() => setMode('personal')}
-                    >
-                      <img src={star} alt="icon on screen" className="w-5" />
-                      <span>個人化</span>
-                    </button>
-                  )}
-                  {/* mode = style */}
-
-                  {mode === 'personal' && (
-                    <button className="footer-icon-btn--active">
-                      <img
-                        src={starWhite}
-                        alt="icon on screen"
-                        className="w-5"
-                      />
-                      <span className="text-white">個人化</span>
-                    </button>
-                  )}
-                  {/* FIXME:和UI確認規格 */}
-                  {/* <button className="footer-icon-btn" disabled={prev === 0}>
-                    <ArrowUturnLeftIcon
-                      className="footer-icon-btn__svgIcon"
-                      disabled={prev === 0}
-                    />
-                    <span>復原</span>
-                  </button>
-                  <button className="footer-icon-btn bg-red-dark">
-                    <img src={next} alt="icon on screen" className="w-5" />
-                    <span>重作</span>
-                  </button> */}
-
-                  {/* TODO: 綁定狀態，當使用者正在貼簽名時才會變成enabled */}
-                  <button className="footer-icon-btn" disabled>
-                    <TrashIcon className="w-5" />
-                    <span>重新簽署</span>
-                  </button>
-                </footer>
+                <Footer mode={mode} setMode={setMode} />
                 <SignModal setMode={setMode} show={mode === 'sign'} />
                 <TextModal setMode={setMode} show={mode === 'text'} />
                 <PersonalModal setMode={setMode} show={mode === 'personal'} />
