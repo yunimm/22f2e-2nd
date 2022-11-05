@@ -63,7 +63,7 @@ function App() {
                 <span>簽署完成</span>
               </li>
             </ul>
-            <Step1 step={step} uploadFile={uploadFile} />
+            {step === 1 && <Step1 step={step} uploadFile={uploadFile} />}
             {step > '1' && (
               <>
                 <div className="relative h-full bg-gray py-2.5 px-5">
