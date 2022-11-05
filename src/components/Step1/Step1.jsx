@@ -9,7 +9,6 @@ const IsFileUpload = () => {
       <div className="step1-main-wrapper__content">
         <div className="relative mb-2.5 ">
           <p className="rounded-lg border py-2.5 px-3">上傳簽署檔案名稱.pdf</p>
-          {/* TODO:封裝樣式 */}
           <button className="absolute -right-0.5 top-0 translate-y-[-1px] rounded-lg bg-red py-3 px-4 text-white ring-blue-dark hover:bg-red-dark active:ring-2 disabled:bg-gray">
             刪除檔案
           </button>
@@ -20,7 +19,6 @@ const IsFileUpload = () => {
             共三頁
           </span>
           <div className="absolute bottom-2.5 right-2.5 flex gap-1">
-            {/* TODO:封裝樣式 */}
             <button className="icon-btn">
               <MinusIcon className="h-6 w-6 text-white" />
             </button>
@@ -75,7 +73,8 @@ const IsEmptyFile = () => {
   );
 };
 
-const Step1 = ({ uploadFile }) => {
+const Step1 = ({ uploadFile, step }) => {
+  if (step > 1) return null;
   return (
     <>
       <main className="step1-main-wrapper">
