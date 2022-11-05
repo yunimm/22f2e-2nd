@@ -5,7 +5,7 @@ import logoDark from '../../assets/logo_dark_2x.png';
 
 const Header = ({ step, setStep, showHamburger,setShowHamburger }) => {
   return (
-    <div className="flex h-[72px] items-center justify-between bg-white px-3 drop-shadow-md">
+    <div className="flex min-h-[72px] items-center justify-between bg-white px-3 drop-shadow-md">
       <div className={cx(!showHamburger && 'hidden')} />
       <div className={cx('flex items-center gap-2', showHamburger && 'hidden')}>
         <Bars3Icon
