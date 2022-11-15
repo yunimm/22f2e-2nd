@@ -11,6 +11,7 @@ import userImage from '../../assets/userImage_2x.png';
 const SideBar = ({ setShowHamburger, setFocus, focus }) => {
   return (
     <>
+      <div className="mod model-5"></div>
       <div className="md:bg-red-600 xl:bg-green-500 flex h-full w-[86px] flex-col justify-between bg-black py-5">
         <div className="flex flex-col items-center justify-center gap-[18px]">
           <XMarkIcon
