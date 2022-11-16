@@ -178,28 +178,30 @@ button {
   border-radius: 6px;
   background-color: black;
   padding: 4px;
-  &:hover {
+  &[enabled]:hover {
     background-color: #5c6b72;
   }
-  &:active {
+  &[enabled]:active {
     outline: 2px solid #c0d2dd;
   }
   &[disabled] {
     background-color: #dedede;
+    pointer-events: none;
   }
 }
 .icon-btn-white {
   border-radius: 6px;
   background-color: white;
   padding: 4px;
-  &:hover {
+  &[enabled]:hover {
     background-color: #5c6b72;
   }
-  &:active {
+  &[enabled]:active {
     outline: 2px solid black;
   }
   &[disabled] {
     background-color: #dedede;
+    pointer-events: none;
   }
 }
 
@@ -251,11 +253,31 @@ button {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-#pdf-viewer {
+.pdf-wrapper {
   max-height: 500px;
-  overflow-y: auto;
+  overflow: auto;
+  margin: 0 auto;
+}
+#pdf-viewer {
+  scale: 1;
   .pdf-page-canvas {
     max-width: 100%;
     max-height: 100%;
   }
+}
+
+.scale-50 {
+  scale: 0.5;
+}
+.scale-75 {
+  scale: 0.75;
+}
+.scale-100 {
+  scale: 1;
+}
+.scale-125 {
+  scale: 1.25;
+}
+.scale-150 {
+  scale: 1.5;
 }
