@@ -55,8 +55,8 @@ const EmptyFile = ({ onUploadFile }) => {
   );
 };
 
-const Step1 = ({ isUpload, step, setIsUpload }) => {
-  if (step > 1) return null;
+const Step1 = ({ isUpload, step, setIsUpload, focus }) => {
+  if (step !== '1') return;
   const canvasRef = useRef(null);
   const minusRef = useRef(null);
   const plusRef = useRef(null);
@@ -174,7 +174,7 @@ const Step1 = ({ isUpload, step, setIsUpload }) => {
 
   return (
     <>
-      <main className="step1-main-wrapper">
+      <main className={cx('step1-main-wrapper', { hidden: focus === '2' })}>
         {!isUpload && <EmptyFile onUploadFile={onUploadFile} />}
         <div className={cx({ hidden: !isUpload })}>
           <div className="step1-main-wrapper__content">
@@ -193,6 +193,7 @@ const Step1 = ({ isUpload, step, setIsUpload }) => {
               <span className="absolute right-2.5 z-50 rounded-md bg-black py-1.5 px-3 font-medium text-white">
                 共{pdfPage}頁
               </span>
+              
               <div className="pdf-wrapper">
                 <div
                   className="pdf-viewer"
@@ -200,6 +201,7 @@ const Step1 = ({ isUpload, step, setIsUpload }) => {
                   ref={canvasRef}
                 ></div>
               </div>
+              
               <div className="absolute bottom-2.5 right-2.5 flex gap-1">
                 <button className="icon-btn">
                   <MinusIcon

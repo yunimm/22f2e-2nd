@@ -18,13 +18,15 @@ import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 function App() {
-  const [focus, setFocus] = useState('2');
+  const [focus, setFocus] = useState('1');
   const [showHamburger, setShowHamburger] = useState(false);
   const [step, setStep] = useState('1');
 
   const [isUpload, setIsUpload] = useState(false);
   const [mode, setMode] = useState(null);
   const [showFileList, setFileList] = useState(false);
+
+  const [cached, setCached] = useState(null);
 
   useEffect(() => {
     setShowHamburger(false);
@@ -55,36 +57,35 @@ function App() {
               showHamburger={showHamburger}
             />
             <Stepper step={step} />
-            {focus === '1' && (
-              <>
-                {step === '1' ? (
-                  <Step1
-                    step={step}
-                    setIsUpload={setIsUpload}
-                    isUpload={isUpload}
-                  />
-                ) : (
-                  <>
-                    <div className="relative h-full bg-gray py-2.5 px-5">
-                      <FileList
-                        showFileList={showFileList}
-                        setFileList={setFileList}
-                      />
-                      {step === '3' && <DownloadBtn />}
-                    </div>
-                    <Footer mode={mode} setMode={setMode} />
-                    <SignModal setMode={setMode} show={mode === 'sign'} />
-                    <TextModal setMode={setMode} show={mode === 'text'} />
-                    <PersonalModal
-                      setMode={setMode}
-                      show={mode === 'personal'}
+
+            <>
+              {step === '1' ? (
+                <Step1
+                  setCached={setCached}
+                  focus={focus}
+                  step={step}
+                  setIsUpload={setIsUpload}
+                  isUpload={isUpload}
+                />
+              ) : (
+                <>
+                  <div className="relative h-full bg-gray py-2.5 px-5">
+                    <FileList
+                      showFileList={showFileList}
+                      setFileList={setFileList}
                     />
-                  </>
-                )}
-              </>
-            )}
+                    {step === '3' && <DownloadBtn />}
+                  </div>
+                  <Footer mode={mode} setMode={setMode} />
+                  <SignModal setMode={setMode} show={mode === 'sign'} />
+                  <TextModal setMode={setMode} show={mode === 'text'} />
+                  <PersonalModal setMode={setMode} show={mode === 'personal'} />
+                </>
+              )}
+            </>
+
             {/* focus === '2' */}
-            {focus === '2' && <SettingSignModal />}
+            {focus === '2' && <SettingSignModal focus={focus} />}
           </div>
         </div>
       </div>

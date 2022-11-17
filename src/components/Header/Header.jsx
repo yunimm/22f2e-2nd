@@ -9,6 +9,7 @@ const Header = ({
   showHamburger,
   setShowHamburger,
   uploadFile,
+  isUpload
 }) => {
   return (
     <div className="flex min-h-[72px] items-center justify-between bg-white px-3 drop-shadow-md">
@@ -38,7 +39,7 @@ const Header = ({
         {step === '1' && (
           <button
             type="button"
-            className={cx('btn-black', { disabled: !uploadFile })}
+            className={cx('btn-black', { disabled: !isUpload })}
             onClick={() => setStep('2')}
           >
             <span className="font-medium">下一步</span>
