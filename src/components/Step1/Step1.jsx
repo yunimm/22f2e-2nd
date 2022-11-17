@@ -126,8 +126,6 @@ const Step1 = ({ isUpload, step, setIsUpload }) => {
   // 1 = 100, 1.25 = 125%
   // 0.75 = 75%, 0.5 = 50%
   const updateScale = (e) => {
-    console.log(canvasRef.current);
-    console.log(canvasRef.current.childNodes[0]);
     const canvas = document.querySelector('canvas');
     let target = e.target.getAttribute('data-name');
     let cs = canvas.className;

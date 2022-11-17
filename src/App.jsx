@@ -18,7 +18,7 @@ import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 function App() {
-  const [focus, setFocus] = useState('1');
+  const [focus, setFocus] = useState('2');
   const [showHamburger, setShowHamburger] = useState(false);
   const [step, setStep] = useState('1');
 
