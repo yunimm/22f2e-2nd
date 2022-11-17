@@ -10,6 +10,85 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
+const File2Image = () => {
+  const Base64Prefix = 'data:application/pdf;base64,';
+  const add = document.querySelector('.add');
+
+  function readBlob(blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => resolve(reader.result));
+      reader.addEventListener('error', reject);
+      reader.readAsDataURL(blob);
+    });
+
+    async function printPDF(pdfData) {
+      // 將檔案處理成 base64
+      pdfData = await readBlob(pdfData);
+
+      // 將 base64 中的前綴刪去，並進行解碼
+      const data = atob(pdfData.substring(Base64Prefix.length));
+
+      // 利用解碼的檔案，載入 PDF 檔及第一頁
+      const pdfDoc = await pdfjsLib.getDocument({ data }).promise;
+      const pdfPage = await pdfDoc.getPage(1);
+
+      // 設定尺寸及產生 canvas
+      const viewport = pdfPage.getViewport({ scale: window.devicePixelRatio });
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
+      // 設定 PDF 所要顯示的寬高及渲染
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      const renderContext = {
+        canvasContext: context,
+        viewport,
+      };
+      const renderTask = pdfPage.render(renderContext);
+
+      // 回傳做好的 PDF canvas
+      return renderTask.promise.then(() => canvas);
+    }
+
+    async function pdfToImage(pdfData) {
+      // 設定 PDF 轉為圖片時的比例
+      const scale = 1 / window.devicePixelRatio;
+
+      // 回傳圖片
+      return new fabric.Image(pdfData, {
+        id: 'renderPDF',
+        scaleX: scale,
+        scaleY: scale,
+      });
+    }
+
+    // 此處 canvas 套用 fabric.js
+    const canvas = new fabric.Canvas('canvas');
+
+    document.querySelector('input').addEventListener('change', async (e) => {
+      canvas.requestRenderAll();
+      const pdfData = await printPDF(e.target.files[0]);
+      const pdfImage = await pdfToImage(pdfData);
+
+      // 透過比例設定 canvas 尺寸
+      canvas.setWidth(pdfImage.width / window.devicePixelRatio);
+      canvas.setHeight(pdfImage.height / window.devicePixelRatio);
+
+      // 將 PDF 畫面設定為背景
+      canvas.setBackgroundImage(pdfImage, canvas.renderAll.bind(canvas));
+    });
+  }
+  return (
+    <>
+      <div>
+        <input type="file" accept="application/pdf" placeholder="選擇PDF檔案" />
+      </div>
+      <canvas id="canvas2" style={{ border: '1px solid #000' }}></canvas>
+    </>
+  );
+};
+
 const EmptyFile = ({ onUploadFile }) => {
   return (
     <>
@@ -68,7 +147,6 @@ const Step1 = ({ isUpload, setIsUpload, focus }) => {
   const [fileName, setFileName] = useState('上傳簽署檔案名稱.pdf');
 
   let thePdf = null;
-  
   const onUploadFile = (e) => {
     const file = e.target.files[0];
     setFileName(file.name);
@@ -111,9 +189,17 @@ const Step1 = ({ isUpload, setIsUpload, focus }) => {
         canvasContext: canvas.getContext('2d'),
         viewport: viewport,
       });
-      return result;
-      // return result.promise.then(() => canvas);
+      // return result;
+      return result.promise.then(() => canvas);
     });
+  };
+
+  // 此處 canvas 套用 fabric.js
+  const canvas2 = new fabric.Canvas('canvas');
+
+  const toImage = async () => {
+    const pdfData = await printPDF(e.target.files[0]);
+    const pdfImage = await pdfToImage(pdfData);
   };
 
   const deleteFile = () => {
@@ -176,36 +262,11 @@ const Step1 = ({ isUpload, setIsUpload, focus }) => {
     }
   };
 
-  // const onPasteSign = () => {
-  //   const sign = document.querySelector('.sign');
-  //   const canvas = new fabric.Canvas('canvas');
-  //   // console.log(canvas);
-  //   canvas.setWidth(500);
-  //   canvas.setHeight(500);
-  //   // canvas.setBackgroundImage(pdfImage, canvas.renderAll.bind(canvas));
-  //   fabric.Image.fromURL(sign.src, function (image) {
-  //     // 設定簽名出現的位置及大小，後續可調整
-  //     image.top = 400;
-  //     image.scaleX = 1;
-  //     image.scaleY = 1;
-  //     canvas.add(image);
-  //   });
-  // };
-
   return (
     <>
-      {/* <p>選擇簽名</p>
-      <img
-        onClick={onPasteSign}
-        className="sign"
-        src={localStorage.getItem('img') ? localStorage.getItem('img') : null}
-        style={{ border: '1px solid #000' }}
-        width="250"
-        height="150"
-      /> */}
-      {/* <canvas width="500" height="300"></canvas> */}
+      <File2Image />
       <main className={cx('step1-main-wrapper', { hidden: focus === '2' })}>
-        {/* {!isUpload && <EmptyFile onUploadFile={onUploadFile} />} */}
+        {!isUpload && <EmptyFile onUploadFile={onUploadFile} />}
 
         <div className={cx({ hidden: !isUpload })}>
           <div className="step1-main-wrapper__content">
@@ -225,13 +286,13 @@ const Step1 = ({ isUpload, setIsUpload, focus }) => {
                 共{pdfPage}頁
               </span>
 
-              {/* <div className="pdf-wrapper">
+              <div className="pdf-wrapper">
                 <div
                   className="pdf-viewer"
                   id="pdf-viewer"
                   ref={canvasRef}
                 ></div>
-              </div> */}
+              </div>
 
               <div className="absolute bottom-2.5 right-2.5 flex gap-1">
                 <button className="icon-btn">

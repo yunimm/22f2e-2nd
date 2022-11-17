@@ -5,7 +5,7 @@ const SettingSignModal = () => {
   const [isPainting, setPainting] = useState(false);
   const [lineWidth, setLineWidth] = useState(4);
   const [lineColor, setLineColor] = useState('#000000');
-
+  const [newImg, setNewImg] = useState(null);
   const canvasRef_sign = useRef(null);
 
   const clearRef = useRef(null);
@@ -89,6 +89,14 @@ const SettingSignModal = () => {
     const canvas = canvasRef_sign.current;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+  };
+  const showImage = document.querySelector('.sign-img');
+  const saveSign = () => {
+    // 圖片儲存的類型選擇 png ，並將值放入 img 的 src
+    const newImg = canvas.toDataURL('image/png');
+    setNewImg(newImg);
+
+    localStorage.setItem('img', newImg);
   };
 
   return (
@@ -179,10 +187,11 @@ const SettingSignModal = () => {
                 >
                   清除
                 </button>
-                <button type="button" className="btn-black">
+                <button onClick={saveSign} type="button" className="btn-black">
                   完成
                 </button>
               </div>
+              <img className="sign-img" src={newImg ? newImg : null}></img>
             </div>
           </div>
         </form>

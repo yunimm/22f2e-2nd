@@ -11,7 +11,10 @@ import FileList from './components/FileList/FileList';
 import DownloadBtn from './components/DownloadBtn/DownloadBtn';
 import Stepper from './components/Stepper/Stepper';
 import SettingSignModal from './components/Modal/SettingSignModal';
-
+import Test from './components/TEST';
+// import Output from './components/Output';
+// import Sign from './components/Sign';
+// import UploadFile2 from './components/UploadFile2';
 import * as pdf from 'pdfjs-dist';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
 
@@ -48,6 +51,7 @@ function App() {
               setShowHamburger={setShowHamburger}
             />
           </div>
+
           <div className="flex h-screen w-full flex-col">
             <Header
               isUpload={isUpload}
@@ -57,35 +61,31 @@ function App() {
               showHamburger={showHamburger}
             />
             <Stepper step={step} />
+            <Test />
+            {/* <Step1
+              setCached={setCached}
+              focus={focus}
+              step={step}
+              setIsUpload={setIsUpload}
+              isUpload={isUpload}
+            /> */}
 
             <>
-              {step === '1' ? (
-                <Step1
-                  setCached={setCached}
-                  focus={focus}
-                  step={step}
-                  setIsUpload={setIsUpload}
-                  isUpload={isUpload}
+              {/* <div className="relative h-full bg-gray py-2.5 px-5"> */}
+                {/* <FileList
+                  showFileList={showFileList}
+                  setFileList={setFileList}
                 />
-              ) : (
-                <>
-                  <div className="relative h-full bg-gray py-2.5 px-5">
-                    <FileList
-                      showFileList={showFileList}
-                      setFileList={setFileList}
-                    />
-                    {step === '3' && <DownloadBtn />}
-                  </div>
-                  <Footer mode={mode} setMode={setMode} />
-                  <SignModal setMode={setMode} show={mode === 'sign'} />
-                  <TextModal setMode={setMode} show={mode === 'text'} />
-                  <PersonalModal setMode={setMode} show={mode === 'personal'} />
-                </>
-              )}
+                {step === '3' && <DownloadBtn />}
+              </div>
+              <Footer mode={mode} setMode={setMode} />
+              <SignModal setMode={setMode} show={mode === 'sign'} />
+              <TextModal setMode={setMode} show={mode === 'text'} />
+              <PersonalModal setMode={setMode} show={mode === 'personal'} /> */}
             </>
 
             {/* focus === '2' */}
-            {focus === '2' && <SettingSignModal focus={focus} />}
+            {/* {focus === '2' && <SettingSignModal focus={focus} />} */}
           </div>
         </div>
       </div>
