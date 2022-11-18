@@ -91,23 +91,26 @@ const Test = () => {
 		}
 	};
 
-	return (
-		<>
-			<p>選擇簽名</p>
-			<img
-				onClick={onPasteSign}
-				className="sign"
-				src={localStorage.getItem("img") ? localStorage.getItem("img") : null}
-				style={{border: "1px solid #000"}}
-				width="250"
-				height="150"
-			/>
-			<div className="h-full w-full">
-				<input onChange={onChange} type="file" />
-				<canvas ref={mainRef}></canvas>
-			</div>
-		</>
-	);
+  return (
+    <>
+      <p>選擇簽名</p>
+      <button onClick={onPasteSign} className="btn">
+        貼上簽名
+      </button>
+      <img
+        onClick={onPasteSign}
+        className="sign"
+        src={localStorage.getItem('img') ? localStorage.getItem('img') : null}
+        style={{ border: '1px solid #000' }}
+        width="250"
+        height="150"
+      />
+      <div className="h-full w-full">
+        <input onChange={onChange} type="file" />
+        <canvas ref={mainRef}></canvas>
+      </div>
+    </>
+  );
 };
 
 export default Test;
