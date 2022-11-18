@@ -16,8 +16,8 @@ import Test from "./components/TEST";
 // import Sign from './components/Sign';
 // import UploadFile2 from './components/UploadFile2';
 
-import EmptyFile from "./components/EmpyFile/EmptyFile";
-import ShowUplaodPdf from "./components/ShowUploadPdf";
+import EmptyFile from "./components/EmptyFile/EmptyFile";
+import ShowUploadPdf from "./components/ShowUploadPdf";
 import * as pdf from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.js?url";
 
@@ -88,7 +88,7 @@ function App() {
 							/>
 						)}
 						{/* 第三步：將pdf轉成圖檔 */}
-						{isUpload && <ShowUplaodPdf step={step} fileName={fileName} uploadPdf={uploadPdf} isUpload={isUpload} />}
+						{isUpload && <ShowUploadPdf step={step} fileName={fileName} uploadPdf={uploadPdf} isUpload={isUpload} />}
 
 						{/* <div className="relative h-full bg-gray py-2.5 px-5">
 							<FileList showFileList={showFileList} setFileList={setFileList} />

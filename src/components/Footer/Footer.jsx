@@ -48,7 +48,7 @@ const Footer = ({ mode, setMode }) => {
     );
   };
   return (
-    <footer className="flex h-[58px] w-full items-center justify-between bg-white py-[9px]">
+    <footer className="flex h-[58px] w-full items-center justify-around bg-white py-[9px]">
       <SignBtn />
       <TextBtn />
       <PersonalBtn />
