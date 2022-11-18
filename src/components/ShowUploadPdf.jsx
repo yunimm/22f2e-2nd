@@ -3,12 +3,14 @@ import * as pdf from "pdfjs-dist";
 import {fabric} from "fabric";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.js?url";
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
-const Test = () => {
+
+const ShowUplaodPdf = ({fileName, uploadPdf, isUpload}) => {
 	const [fa, setFa] = useState(null);
 	const mainRef = useRef(null);
 	const Base64Prefix = "data:application/pdf;base64,";
 
 	useEffect(() => {
+		console.log("123");
 		const c = new fabric.Canvas(mainRef.current);
 		setFa(c);
 	}, [mainRef]);
@@ -32,6 +34,7 @@ const Test = () => {
 
 		// 利用解碼的檔案，載入 PDF 檔及第一頁
 		const pdfDoc = await pdf.getDocument({data}).promise;
+    console.log()
 		const pdfPage = await pdfDoc.getPage(1);
 
 		// 設定尺寸及產生 canvas
@@ -64,50 +67,46 @@ const Test = () => {
 		});
 	}
 
-	// 此處 canvas 套用 fabric.js
+	// // 此處 canvas 套用 fabric.js
 	const onChange = async (e) => {
 		fa.requestRenderAll();
-		const pdfData = await printPDF(e.target.files[0]);
-    console.log('test-pdfdata:',pdfData)
+
+		const pdfData = await printPDF(uploadPdf);
+
 		const pdfImage = await pdfToImage(pdfData);
-    console.log('test-pdfImage:',pdfImage)
+    
 		// 透過比例設定 canvas 尺寸
 		fa.setWidth(pdfImage.width / window.devicePixelRatio);
 		fa.setHeight(pdfImage.height / window.devicePixelRatio);
+
 		// 將 PDF 畫面設定為背景
 		fa.setBackgroundImage(pdfImage, fa.renderAll.bind(fa));
 	};
-
-	const onPasteSign = () => {
-		const sign = document.querySelector(".sign");
-		if (fa) {
-			fabric.Image.fromURL(sign.src, function (image) {
-				// 設定簽名出現的位置及大小，後續可調整
-				image.top = 400;
-				image.scaleX = 0.5;
-				image.scaleY = 0.5;
-				fa.add(image).renderAll();
-			});
-		}
-	};
+	// 此處 canvas 套用 fabric.js
+	// useEffect(() => {
+	// 	if (isUpload === true) {
+	// 		fa.requestRenderAll();
+	// 		const pdfData = printPDF(uploadPdf);
+	// 		const pdfImage = pdfToImage(pdfData);
+	// 		// 透過比例設定 canvas 尺寸
+	// 		fa.setWidth(pdfImage.width / window.devicePixelRatio);
+	// 		fa.setHeight(pdfImage.height / window.devicePixelRatio);
+	// 		// 將 PDF 畫面設定為背景
+	// 		fa.setBackgroundImage(pdfImage, fa.renderAll.bind(fa));
+	// 	}
+	// }, [isUpload]);
 
 	return (
 		<>
-			<p>選擇簽名</p>
-			<img
-				onClick={onPasteSign}
-				className="sign"
-				src={localStorage.getItem("img") ? localStorage.getItem("img") : null}
-				style={{border: "1px solid #000"}}
-				width="250"
-				height="150"
-			/>
+			<h1>upload-file:</h1>
+			<button onClick={onChange} className="border">
+				ok
+			</button>
 			<div className="h-full w-full">
-				<input onChange={onChange} type="file" />
 				<canvas ref={mainRef}></canvas>
 			</div>
 		</>
 	);
 };
 
-export default Test;
+export default ShowUplaodPdf;
