@@ -4,13 +4,12 @@ import {fabric} from "fabric";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.js?url";
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
-const ShowUplaodPdf = ({fileName, uploadPdf, isUpload}) => {
+const ShowUplaodPdf = ({fileName, uploadPdf, isUpload, step}) => {
 	const [fa, setFa] = useState(null);
 	const mainRef = useRef(null);
 	const Base64Prefix = "data:application/pdf;base64,";
 
 	useEffect(() => {
-		console.log("123");
 		const c = new fabric.Canvas(mainRef.current);
 		setFa(c);
 	}, [mainRef]);
@@ -34,7 +33,7 @@ const ShowUplaodPdf = ({fileName, uploadPdf, isUpload}) => {
 
 		// 利用解碼的檔案，載入 PDF 檔及第一頁
 		const pdfDoc = await pdf.getDocument({data}).promise;
-    console.log()
+
 		const pdfPage = await pdfDoc.getPage(1);
 
 		// 設定尺寸及產生 canvas
@@ -68,13 +67,17 @@ const ShowUplaodPdf = ({fileName, uploadPdf, isUpload}) => {
 	}
 
 	// // 此處 canvas 套用 fabric.js
-	const onChange = async (e) => {
+	useEffect(() => {
+		if (step !== "2") return;
+		onPDFtoBackground();
+	}, [step]);
+	const onPDFtoBackground = async () => {
 		fa.requestRenderAll();
 
 		const pdfData = await printPDF(uploadPdf);
 
 		const pdfImage = await pdfToImage(pdfData);
-    
+
 		// 透過比例設定 canvas 尺寸
 		fa.setWidth(pdfImage.width / window.devicePixelRatio);
 		fa.setHeight(pdfImage.height / window.devicePixelRatio);
@@ -82,28 +85,15 @@ const ShowUplaodPdf = ({fileName, uploadPdf, isUpload}) => {
 		// 將 PDF 畫面設定為背景
 		fa.setBackgroundImage(pdfImage, fa.renderAll.bind(fa));
 	};
-	// 此處 canvas 套用 fabric.js
-	// useEffect(() => {
-	// 	if (isUpload === true) {
-	// 		fa.requestRenderAll();
-	// 		const pdfData = printPDF(uploadPdf);
-	// 		const pdfImage = pdfToImage(pdfData);
-	// 		// 透過比例設定 canvas 尺寸
-	// 		fa.setWidth(pdfImage.width / window.devicePixelRatio);
-	// 		fa.setHeight(pdfImage.height / window.devicePixelRatio);
-	// 		// 將 PDF 畫面設定為背景
-	// 		fa.setBackgroundImage(pdfImage, fa.renderAll.bind(fa));
-	// 	}
-	// }, [isUpload]);
 
 	return (
 		<>
-			<h1>upload-file:</h1>
+			{/* <h1>upload-file:</h1>
 			<button onClick={onChange} className="border">
 				ok
-			</button>
-			<div className="h-full w-full">
-				<canvas ref={mainRef}></canvas>
+			</button> */}
+			<div className="max-h-[500px] w-full">
+				<canvas className="max-h-[500px]" ref={mainRef}></canvas>
 			</div>
 		</>
 	);

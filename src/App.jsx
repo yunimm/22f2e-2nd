@@ -1,4 +1,4 @@
-import {useState, useEffect, useLayoutEffect, useRef} from "react";
+import {useState, useEffect} from "react";
 import cx from "classnames";
 import SignModal from "../src/components/Modal/SignModal";
 import TextModal from "../src/components/Modal/TextModal";
@@ -47,10 +47,6 @@ function App() {
 		setUploadPdf(file);
 		setIsUpload(true);
 	};
-	//
-	console.log("fileName:", fileName);
-	console.log("uploadPdf:", uploadPdf);
-	console.log("uploadFile");
 
 	return (
 		<div className="App">
@@ -79,23 +75,35 @@ function App() {
 						{/* 第一步：上傳檔案 */}
 						{!isUpload && <EmptyFile onUploadFile={onUploadFile} />}
 
-						{/* 第二步：預覽上傳資料 */}
-						{isUpload && <ShowUplaodPdf fileName={fileName} uploadPdf={uploadPdf} isUpload={isUpload} />}
+						{/* 第二步：預覽上傳資料(pdf=image) */}
+						{step === "1" && (
+							<Step1
+								fileName={fileName}
+								uploadPdf={uploadPdf}
+								isUpload={isUpload}
+								setCached={setCached}
+								focus={focus}
+								step={step}
+								setIsUpload={setIsUpload}
+							/>
+						)}
+						{/* 第三步：將pdf轉成圖檔 */}
+						{isUpload && <ShowUplaodPdf step={step} fileName={fileName} uploadPdf={uploadPdf} isUpload={isUpload} />}
 
-						{/* <Step1 setCached={setCached} focus={focus} step={step} setIsUpload={setIsUpload} isUpload={isUpload} /> */}
-						<>
-							{/* <div className="relative h-full bg-gray py-2.5 px-5"> */}
-							{/* <FileList
-                  showFileList={showFileList}
-                  setFileList={setFileList}
-                />
-                {step === '3' && <DownloadBtn />}
-              </div>
-              <Footer mode={mode} setMode={setMode} />
-              <SignModal setMode={setMode} show={mode === 'sign'} />
-              <TextModal setMode={setMode} show={mode === 'text'} />
-              <PersonalModal setMode={setMode} show={mode === 'personal'} /> */}
-						</>
+						{/* <div className="relative h-full bg-gray py-2.5 px-5">
+							<FileList showFileList={showFileList} setFileList={setFileList} />
+						</div> */}
+
+						{step !== "1" && (
+							<div className="absolute bottom-0 z-50 w-full">
+								<Footer mode={mode} setMode={setMode} />
+							</div>
+						)}
+						<SignModal setMode={setMode} show={mode === "sign"} />
+						<TextModal setMode={setMode} show={mode === "text"} />
+						<PersonalModal setMode={setMode} show={mode === "personal"} />
+
+						{step === "3" && <DownloadBtn />}
 						{/* focus === '2' */}
 						{focus === "2" && <SettingSignModal focus={focus} />}
 					</div>
