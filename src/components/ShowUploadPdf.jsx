@@ -4,8 +4,17 @@ import { fabric } from 'fabric';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
-const ShowUplaodPdf = ({ fileName, uploadPdf, isUpload, step }) => {
-  const [fa, setFa] = useState(null);
+const ShowUploadPdf = ({
+  fileName,
+  uploadPdf,
+  isUpload,
+  step,
+  signed,
+  setFa,
+  fa
+}) => {
+  //放到app
+  // const [fa, setFa] = useState(null);
   const mainRef = useRef(null);
   const Base64Prefix = 'data:application/pdf;base64,';
 
@@ -106,4 +115,4 @@ const ShowUplaodPdf = ({ fileName, uploadPdf, isUpload, step }) => {
   );
 };
 
-export default ShowUplaodPdf;
+export default ShowUploadPdf;

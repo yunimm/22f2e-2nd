@@ -282,27 +282,11 @@ button {
   scale: 1.5;
 }
 
-#canvas-sign {
-  min-width: 390px;
-  // width: 100%;
-  // object-fit: cover;
+.responsive-canvas {
+  width: 477px;
+  height: 138px;
 }
 
-// output
-// .output-wrapper {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// }
-// .output-main {
-//   position: relative;
-//   height: auto;
-//   width: 100%;
-//   display: flex;
-//   margin: 20px auto;
-//   align-items: center;
-//   justify-content: center;
-// }
 .upper-canvas {
   border: none;
 }

@@ -1,19 +1,21 @@
 import { useRef, useEffect, useState } from 'react';
-
 const SettingSignModal = () => {
   const [locations, setLocations] = useState([]);
   const [isPainting, setPainting] = useState(false);
   const [lineWidth, setLineWidth] = useState(4);
   const [lineColor, setLineColor] = useState('#000000');
   const [newImg, setNewImg] = useState(null);
+  const [canvasCurrent, setCanvasCurrent] = useState(null);
+  const [ctxVal, setCtxVal] = useState(null);
   const canvasRef_sign = useRef(null);
-
   const clearRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef_sign.current;
+    setCanvasCurrent(canvas);
     const ctx = canvas.getContext('2d');
-  });
+    setCtxVal(ctx);
+  }, []);
 
   useEffect(() => {
     if (canvasRef_sign.current) {
@@ -39,7 +41,7 @@ const SettingSignModal = () => {
 
   // 取得滑鼠 / 手指在畫布上的位置
   const getPaintPosition = (e) => {
-    const canvasSize = canvas.getBoundingClientRect();
+    const canvasSize = canvasCurrent.getBoundingClientRect();
 
     if (e.type === 'mousemove') {
       return {
@@ -62,40 +64,33 @@ const SettingSignModal = () => {
 
   // // 結束繪圖時，將狀態關閉，並產生新路徑
   const finishedPosition = () => {
-    const canvas = canvasRef_sign.current;
-    const ctx = canvas.getContext('2d');
     setPainting(false);
-    ctx.beginPath();
+    ctxVal.beginPath();
   };
 
   function draw(e) {
-    const canvas = canvasRef_sign.current;
-    const ctx = canvas.getContext('2d');
     // 滑鼠移動過程中，若非繪圖狀態，則跳出
     if (!isPainting) return;
 
     // 取得滑鼠 / 手指在畫布上的 x, y 軸位置位置
     const paintPosition = getPaintPosition(e);
 
-    ctx.lineWidth = lineWidth;
-    ctx.strokeStyle = lineColor;
-    ctx.lineCap = 'round';
+    ctxVal.lineWidth = lineWidth;
+    ctxVal.strokeStyle = lineColor;
+    ctxVal.lineCap = 'round';
     // 移動滑鼠位置並產生圖案
-    ctx.lineTo(paintPosition.x, paintPosition.y);
-    ctx.stroke();
+    ctxVal.lineTo(paintPosition.x, paintPosition.y);
+    ctxVal.stroke();
   }
 
   const reset = () => {
-    const canvas = canvasRef_sign.current;
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctxVal.clearRect(0, 0, canvasCurrent.width, canvasCurrent.height);
   };
   const showImage = document.querySelector('.sign-img');
-  const saveSign = () => {
+  const saveSign = (e) => {
     // 圖片儲存的類型選擇 png ，並將值放入 img 的 src
     const newImg = canvas.toDataURL('image/png');
     setNewImg(newImg);
-
     localStorage.setItem('img', newImg);
   };
 
@@ -112,15 +107,15 @@ const SettingSignModal = () => {
             />
           </label>
           <label>
-            <h5 className="ml-3">信箱</h5>
+            <h5 className="ml-3">電話</h5>
             <input
               type="text"
               className="h-9 w-full rounded-md border py-2.5 px-3"
-              placeholder="請輸入欲使用的個人信箱"
+              placeholder="請輸入欲使用的個人電話"
             />
           </label>
           <label>
-            <h5 className="ml-3">信箱</h5>
+            <h5 className="ml-3">地址</h5>
             <input
               type="text"
               className="h-9 w-full rounded-md border py-2.5 px-3"
@@ -138,12 +133,11 @@ const SettingSignModal = () => {
               </li>
             </ul>
             <div className="rounded-md border">
-              <div className="draw h-[138px] rounded-t-md border-b border-blue-dark bg-[#EBF3FC]">
+              <div className="h-[138px] w-[390px] rounded-t-md border-b border-blue-dark bg-[#EBF3FC]">
                 <canvas
                   ref={canvasRef_sign}
+                  className="responsive-canvas"
                   id="canvas"
-                  width="500"
-                  height="138"
                   style={{
                     border: '1px solid #333333',
                   }}
@@ -191,7 +185,7 @@ const SettingSignModal = () => {
                   完成
                 </button>
               </div>
-              <img className="sign-img" src={newImg ? newImg : null}></img>
+              {/* <img className="sign-img" src={newImg ? newImg : null}></img> */}
             </div>
           </div>
         </form>
