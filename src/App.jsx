@@ -20,7 +20,8 @@ import EmptyFile from './components/EmptyFile/EmptyFile';
 import ShowUploadPdf from './components/ShowUploadPdf';
 import * as pdf from 'pdfjs-dist';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
-
+import { jsPDF } from 'jspdf';
+const doc = new jsPDF();
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 function App() {
@@ -64,7 +65,17 @@ function App() {
       });
     }
   };
+  const onDownloadFile = () => {
+    // 將 canvas 存為圖片
+    const image = fa.toDataURL('image/png');
+    // 設定背景在 PDF 中的位置及大小
+    const width = doc.internal.pageSize.width;
+    const height = doc.internal.pageSize.height;
+    doc.addImage(image, 'png', 0, 0, width, height);
 
+    // 將檔案取名並下載
+    doc.save('download.pdf');
+  };
   return (
     <div className="App">
       <div className="bg-gray-200 h-screen">
@@ -147,7 +158,7 @@ function App() {
             <TextModal setMode={setMode} show={mode === 'text'} />
             <PersonalModal setMode={setMode} show={mode === 'personal'} />
 
-            {step === '3' && <DownloadBtn />}
+            {step === '3' && <DownloadBtn onDownloadFile={onDownloadFile} />}
             {/* focus === '2' */}
             {focus === '2' && <SettingSignModal focus={focus} />}
           </div>

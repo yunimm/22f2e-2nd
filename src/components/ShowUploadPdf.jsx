@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from 'react';
 import * as pdf from 'pdfjs-dist';
 import { fabric } from 'fabric';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
+import { jsPDF } from 'jspdf';
+const doc = new jsPDF();
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 const ShowUploadPdf = ({
@@ -11,7 +13,7 @@ const ShowUploadPdf = ({
   step,
   signed,
   setFa,
-  fa
+  fa,
 }) => {
   //放到app
   // const [fa, setFa] = useState(null);
@@ -94,13 +96,24 @@ const ShowUploadPdf = ({
     // 將 PDF 畫面設定為背景
     fa.setBackgroundImage(pdfImage, fa.renderAll.bind(fa));
   };
+  const onDownloadFile = () => {
+    // 將 canvas 存為圖片
+    const image = fa.toDataURL('image/png');
+    // 設定背景在 PDF 中的位置及大小
+    const width = doc.internal.pageSize.width;
+    const height = doc.internal.pageSize.height;
+    doc.addImage(image, 'png', 0, 0, width, height);
 
+    // 將檔案取名並下載
+    doc.save('download.pdf');
+  };
   return (
     <>
       {/* <h1>upload-file:</h1>
 			<button onClick={onChange} className="border">
 				ok
 			</button> */}
+      <button type="button" onClick={onDownloadFile}>test download</button>
       <div
         className="max-h-[600px] w-[1920px]"
         style={{ paddingLeft: 'calc(50% - 250px)' }}

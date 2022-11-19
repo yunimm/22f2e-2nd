@@ -1,9 +1,10 @@
 import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
-const DownloadBtn = () => {
+const DownloadBtn = ({ onDownloadFile }) => {
   return (
     <button
+      onClick={onDownloadFile}
       type="button"
-      className="icon-btn absolute bottom-2.5 right-5 h-8 w-8 text-white"
+      className="icon-btn absolute bottom-16 right-5 h-8 w-8 text-white"
       id="menu-button"
       aria-expanded="true"
       aria-haspopup="true"
