@@ -23,7 +23,7 @@ const PersonalModal = ({ show, setMode }) => {
           />
         </div>
         <div className="flex h-[76px] justify-center py-5 px-2.5">
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-2.5 ">
             <button className="btn-group">
               <EnvelopeIcon className="h-5 w-5" />
               <span>信箱</span>
@@ -37,13 +37,13 @@ const PersonalModal = ({ show, setMode }) => {
               <span>地址</span>
             </button>
             <button className="btn-group">
-              <img src={signIcon} alt="icon on screen" className="w-4 ml-0.5" />
+              <img src={signIcon} alt="icon on screen" className="ml-0.5 w-4" />
               <span>簽名1</span>
             </button>
-            <button className="btn-group">
+            {/* <button className="btn-group">
               <img src={signIcon} alt="icon on screen" className="w-4 ml-0.5" />
               <span>簽名2</span>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

@@ -15,6 +15,9 @@ const SignModal = ({ show, setMode, onPasteSign }) => {
 
   useEffect(() => {
     const canvas = canvasRef_signModal.current;
+    const wrapper = document.getElementById('canvas-wrapper-setting-sign');
+    canvas.width = wrapper.offsetWidth;
+    canvas.height = wrapper.offsetHeight;
     setCanvasCurrent(canvas);
     const ctx = canvas.getContext('2d');
     setCtxVal(ctx);
@@ -111,13 +114,13 @@ const SignModal = ({ show, setMode, onPasteSign }) => {
             className="h-6 w-6 flex-none cursor-pointer"
           />
         </div>
-        <div className="draw h-[162px] border-y border-blue-dark bg-[#EBF3FC]">
+        <div
+          id="canvas-wrapper-setting-sign"
+          className="draw h-[162px] border-y border-blue-dark bg-[#EBF3FC]"
+        >
           <canvas
             ref={canvasRef_signModal}
             className="responsive-canvas-modal"
-            style={{
-              border: '1px solid #333333',
-            }}
           />
         </div>
         <div className="flex gap-2.5 border-b border-gray py-2.5 px-[14px]">

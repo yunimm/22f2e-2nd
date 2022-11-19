@@ -283,8 +283,13 @@ button {
 }
 
 .responsive-canvas {
-  width: 477px;
-  height: 138px;
+  object-fit: cover;
+  overflow: hidden;
+}
+#canvas-wrapper {
+  // width: 100%;
+  overflow: hidden;
+  min-width: 390px;
 }
 
 .upper-canvas {

@@ -26,7 +26,7 @@ function App() {
   const [showHamburger, setShowHamburger] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
   const [showFileList, setFileList] = useState(false);
-  const [focus, setFocus] = useState('1');
+  const [focus, setFocus] = useState('2');
   const [step, setStep] = useState('1');
   // 依據狀態顯示不同彈窗： sign / text / personal //
   const [mode, setMode] = useState(null);
@@ -189,7 +189,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="bg-gray-200 h-screen">
+      <div className="h-screen bg-gray">
         <div className="relative flex">
           <div
             className={cx(
@@ -223,7 +223,9 @@ function App() {
             <Output /> */}
 
             {/* 第一步：上傳檔案 */}
-            {!isUpload && <EmptyFile onUploadFile={onUploadFile} />}
+            {!isUpload && focus === '1' && (
+              <EmptyFile onUploadFile={onUploadFile} />
+            )}
 
             {/* 第二步：預覽上傳資料(pdf=image) */}
             {step === '1' && (
@@ -247,6 +249,7 @@ function App() {
                 onPasteSign={onPasteSign}
                 setFa={setFa}
                 fa={fa}
+                focus={focus}
               />
             )}
             {step !== '1' && (
@@ -274,7 +277,7 @@ function App() {
 
             {step === '3' && <DownloadBtn onDownloadFile={onDownloadFile} />}
             {/* focus === '2' */}
-            {focus === '2' && <SettingSignModal focus={focus} />}
+            <SettingSignModal focus={focus} />
           </div>
         </div>
       </div>

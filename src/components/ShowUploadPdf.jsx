@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import cx from 'classnames';
 import * as pdf from 'pdfjs-dist';
 import { fabric } from 'fabric';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
@@ -6,7 +7,7 @@ import { jsPDF } from 'jspdf';
 const doc = new jsPDF();
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
-const ShowUploadPdf = ({ uploadPdf, step, setFa, fa }) => {
+const ShowUploadPdf = ({ uploadPdf, step, setFa, fa, focus }) => {
   const mainRef = useRef(null);
   const Base64Prefix = 'data:application/pdf;base64,';
 
@@ -88,9 +89,9 @@ const ShowUploadPdf = ({ uploadPdf, step, setFa, fa }) => {
   };
 
   return (
-    <>
+    <div className={cx({ hidden: focus === '2' })}>
       <div
-        className="max-h-[600px] w-[1920px]"
+        className="max-h-[600px] w-full"
         style={{ paddingLeft: 'calc(50% - 250px)' }}
       >
         <canvas
@@ -99,7 +100,7 @@ const ShowUploadPdf = ({ uploadPdf, step, setFa, fa }) => {
           ref={mainRef}
         ></canvas>
       </div>
-    </>
+    </div>
   );
 };
 
