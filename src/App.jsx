@@ -273,7 +273,11 @@ function App() {
             ) : null}
 
             <TextModal setMode={setMode} show={mode === 'text'} />
-            <PersonalModal setMode={setMode} show={mode === 'personal'} />
+            <PersonalModal
+              fa={fa}
+              setMode={setMode}
+              show={mode === 'personal'}
+            />
 
             {step === '3' && <DownloadBtn onDownloadFile={onDownloadFile} />}
             {/* focus === '2' */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { fabric } from 'fabric';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import {
   EnvelopeIcon,
@@ -6,8 +7,16 @@ import {
   MapPinIcon,
 } from '@heroicons/react/24/outline';
 import signIcon from '../../assets/createSign-black_2x.png';
-const PersonalModal = ({ show, setMode }) => {
+const PersonalModal = ({ show, setMode, fa }) => {
   if (!show) return null;
+
+  const textTest = () => {
+    const text = new fabric.IText('Hello 鐵人賽', {
+      left: 200,
+      top: 200,
+    });
+    fa.add(text).renderAll();
+  };
   return (
     <div
       className="
@@ -24,7 +33,7 @@ const PersonalModal = ({ show, setMode }) => {
         </div>
         <div className="flex h-[76px] justify-center py-5 px-2.5">
           <div className="flex flex-col gap-2.5 ">
-            <button className="btn-group">
+            <button onClick={textTest} type="button" className="btn-group">
               <EnvelopeIcon className="h-5 w-5" />
               <span>信箱</span>
             </button>

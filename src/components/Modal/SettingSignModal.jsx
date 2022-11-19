@@ -90,8 +90,8 @@ const SettingSignModal = ({ focus }) => {
   const reset = () => {
     ctxVal.clearRect(0, 0, canvasCurrent.width, canvasCurrent.height);
   };
-  const showImage = document.querySelector('.sign-img');
-  const saveSign = (e) => {
+
+  const saveSign = () => {
     // 圖片儲存的類型選擇 png ，並將值放入 img 的 src
     const newImg = canvas.toDataURL('image/png');
     setNewImg(newImg);
