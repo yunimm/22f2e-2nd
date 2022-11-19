@@ -3,6 +3,7 @@ import cx from 'classnames';
 import * as pdf from 'pdfjs-dist';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
 import { jsPDF } from 'jspdf';
+import Swal from 'sweetalert2';
 import SignModal from '../src/components/Modal/SignModal';
 import TextModal from '../src/components/Modal/TextModal';
 import PersonalModal from '../src/components/Modal/PersonalModal';
@@ -38,48 +39,105 @@ function App() {
   const [signed, setSigned] = useState(false);
   // new fabric //
   const [fa, setFa] = useState(null);
-  const [localSrc, setLocalSrc] = useState(null);
 
   useEffect(() => {
     setShowHamburger(false);
   }, [focus]);
 
-  const onPrevStep = () => {
-    const cb = () => {
-      setIsUpload(false);
-      setStep('1');
-      setUploadPdf(null);
-    };
-    AlertTwoButton(
-      '返回上一步',
-      '確定要返回上一步驟?',
-      '請注意若確認返回上一步驟，正在簽署中的文件將不會被保留。',
-      cb,
-    );
+  const backToStep2 = () => {
+    setStep('2');
+    clearFabric();
   };
 
+  const backToStep1 = () => {
+    setIsUpload(false);
+    setStep('1');
+    setUploadPdf(null);
+    setSigned(false);
+  };
+  const onPrevStep = () => {
+    if (step === '2') {
+      AlertTwoButton(
+        '返回上一步',
+        '確定要返回上一步驟?',
+        '請注意若確認返回上一步驟，正在簽署中的文件將不會被保留。',
+        backToStep1,
+      );
+    } else if (step === '3') {
+      AlertTwoButton(
+        '返回上一步',
+        '確定要返回上一步驟?',
+        '請注意若確認返回上一步驟，已完成簽署的簽名及文字將被清除，還原至原檔。',
+        backToStep2,
+      );
+    }
+  };
+  const alertCompletedSign = () => {
+    setStep('3');
+    Swal.fire({
+      imageUrl: 'https://placeholder.pics/svg/300x1500',
+      imageHeight: 500,
+      imageAlt: 'A tall image',
+      title: '恭喜您完成簽屬!',
+      showCancelButton: true,
+      // 取消
+      confirmButtonText: '瀏覽簽署內容',
+      // 確認
+      cancelButtonText: '立即下載PDF檔',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isDismissed) {
+        onDownloadFile();
+      } else {
+        alert('停留在step3');
+      }
+    });
+  };
+  const alertDownloadedSuccess = () => {
+    Swal.fire({
+      imageUrl: 'https://placeholder.pics/svg/300x1500',
+      imageHeight: 500,
+      imageAlt: 'A tall image',
+      title: '下載檔案成功!',
+      showCancelButton: true,
+      // 取消
+      confirmButtonText: '明白了!',
+      // 確認
+      cancelButtonText: '立即簽署新文件',
+    }).then((result) => {
+      if (result.isDismissed) {
+        AlertTwoButton(
+          '簽屬新檔案',
+          '簽署新的檔案?',
+          '請確認此簽署檔案是否已下載或儲存，若開始簽屬新文件，此檔案將不被保留。',
+          backToStep1,
+        );
+        //
+      } else {
+        setStep('3');
+      }
+    });
+  };
   const onFinish = () => {
-    const cb = () => {
-      // 1彈窗-下載檔案成功!恭喜您完成簽屬!
-      // 1-1 選擇瀏覽簽署內容->停留在step3
-      // 1-2 選擇立即下載PDF-> 2 彈窗-下載檔案成功!
+    // 1彈窗-下載檔案成功!恭喜您完成簽屬!
+    // 1-1 選擇瀏覽簽署內容->停留在step3
+    // 1-2 選擇立即下載PDF-> 2 彈窗-下載檔案成功!
 
-      //2 選擇明白了!->停留在step3
-      //2 選擇立即簽署新文件->3 Alert簽署新的檔案?
+    //2 選擇明白了!->停留在step3
+    //2 選擇立即簽署新文件->3 Alert簽署新的檔案?
 
-      //3 Alert簽署新的檔案
-      //3 選擇取消->停留在step3
-      //3 選擇簽屬新檔案->回到step1
+    //3 Alert簽署新的檔案
+    //3 選擇取消->停留在step3
+    //3 選擇簽屬新檔案->回到step2->清除簽名
 
-      setStep('3');
-    };
     AlertTwoButton(
       '完成簽屬',
       '完成簽屬文件?',
       '請確認是否完成文件簽屬，若進入完成簽屬將無法返回編輯文件。',
-      cb,
+      alertCompletedSign,
     );
   };
+
   const onUploadFile = (e) => {
     const file = e.target.files[0];
     setFileName(file.name);
@@ -102,18 +160,19 @@ function App() {
     setSigned(true);
   };
 
+  const clearFabric = () => {
+    while (fa._objects[0]) {
+      fa.remove(fa._objects[0]);
+    }
+    setSigned(false);
+  };
+
   const clear = () => {
-    const cb = () => {
-      while (fa._objects[0]) {
-        fa.remove(fa._objects[0]);
-      }
-      setSigned(false);
-    };
     AlertTwoButton(
       '確定清空',
       '重新簽署文件?',
       '請確認是否要清空所有已編輯資料。',
-      cb,
+      clearFabric,
     );
   };
   const onDownloadFile = () => {
@@ -124,6 +183,8 @@ function App() {
     const height = doc.internal.pageSize.height;
     doc.addImage(image, 'png', 0, 0, width, height);
     doc.save('download.pdf');
+
+    alertDownloadedSuccess();
   };
 
   return (
