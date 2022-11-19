@@ -8,8 +8,9 @@ const Header = ({
   setStep,
   showHamburger,
   setShowHamburger,
-  uploadFile,
-  isUpload
+  isUpload,
+  onPrevStep,
+  onFinish,
 }) => {
   return (
     <div className="flex min-h-[72px] items-center justify-between bg-white px-3 drop-shadow-md">
@@ -28,11 +29,7 @@ const Header = ({
       <span className="text-gray-dark">united</span>
       <div className="flex h-full items-center justify-end gap-2.5">
         {step > '1' && (
-          <button
-            type="button"
-            className="btn-white"
-            onClick={() => setStep(step - 1 + '')}
-          >
+          <button type="button" className="btn-white" onClick={onPrevStep}>
             返回
           </button>
         )}
@@ -46,11 +43,7 @@ const Header = ({
           </button>
         )}
         {step === '2' && (
-          <button
-            type="button"
-            className="btn-black"
-            onClick={() => setStep('3')}
-          >
+          <button type="button" className="btn-black" onClick={onFinish}>
             <span className="font-medium">完成</span>
           </button>
         )}

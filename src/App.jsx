@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import cx from 'classnames';
+import * as pdf from 'pdfjs-dist';
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
+import { jsPDF } from 'jspdf';
 import SignModal from '../src/components/Modal/SignModal';
 import TextModal from '../src/components/Modal/TextModal';
 import PersonalModal from '../src/components/Modal/PersonalModal';
@@ -14,9 +17,7 @@ import SettingSignModal from './components/Modal/SettingSignModal';
 import Test from './components/TEST';
 import EmptyFile from './components/EmptyFile/EmptyFile';
 import ShowUploadPdf from './components/ShowUploadPdf';
-import * as pdf from 'pdfjs-dist';
-import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
-import { jsPDF } from 'jspdf';
+import { AlertTwoButton } from './components/Alert/Alert';
 const doc = new jsPDF();
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
@@ -43,6 +44,42 @@ function App() {
     setShowHamburger(false);
   }, [focus]);
 
+  const onPrevStep = () => {
+    const cb = () => {
+      setIsUpload(false);
+      setStep('1');
+      setUploadPdf(null);
+    };
+    AlertTwoButton(
+      '返回上一步',
+      '確定要返回上一步驟?',
+      '請注意若確認返回上一步驟，正在簽署中的文件將不會被保留。',
+      cb,
+    );
+  };
+
+  const onFinish = () => {
+    const cb = () => {
+      // 1彈窗-下載檔案成功!恭喜您完成簽屬!
+      // 1-1 選擇瀏覽簽署內容->停留在step3
+      // 1-2 選擇立即下載PDF-> 2 彈窗-下載檔案成功!
+
+      //2 選擇明白了!->停留在step3
+      //2 選擇立即簽署新文件->3 Alert簽署新的檔案?
+
+      //3 Alert簽署新的檔案
+      //3 選擇取消->停留在step3
+      //3 選擇簽屬新檔案->回到step1
+
+      setStep('3');
+    };
+    AlertTwoButton(
+      '完成簽屬',
+      '完成簽屬文件?',
+      '請確認是否完成文件簽屬，若進入完成簽屬將無法返回編輯文件。',
+      cb,
+    );
+  };
   const onUploadFile = (e) => {
     const file = e.target.files[0];
     setFileName(file.name);
@@ -66,10 +103,18 @@ function App() {
   };
 
   const clear = () => {
-    while (fa._objects[0]) {
-      fa.remove(fa._objects[0]);
-    }
-    setSigned(false);
+    const cb = () => {
+      while (fa._objects[0]) {
+        fa.remove(fa._objects[0]);
+      }
+      setSigned(false);
+    };
+    AlertTwoButton(
+      '確定清空',
+      '重新簽署文件?',
+      '請確認是否要清空所有已編輯資料。',
+      cb,
+    );
   };
   const onDownloadFile = () => {
     // 將 canvas 存為圖片
@@ -106,6 +151,8 @@ function App() {
                 step={step}
                 setShowHamburger={setShowHamburger}
                 showHamburger={showHamburger}
+                onPrevStep={onPrevStep}
+                onFinish={onFinish}
               />
               <Stepper step={step} />
             </div>

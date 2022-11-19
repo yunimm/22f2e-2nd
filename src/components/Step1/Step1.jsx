@@ -33,9 +33,8 @@ const Step1 = ({ isUpload, setIsUpload, focus, uploadPdf, fileName }) => {
         setPdfPage(pdfDocument.numPages);
 
         thePdf = pdfDocument;
-				
-				// PDFDocumentProxy
-        console.log('thePdf', thePdf);
+
+        // PDFDocumentProxy
         const viewer = canvasRef.current;
 
         for (let page = 1; page <= thePdf.numPages; page++) {
