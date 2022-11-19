@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 import text from '../../assets/text_2x.png';
 import star from '../../assets/star_2x.png';
 import sign from '../../assets/sign_2x.png';
@@ -7,7 +8,7 @@ import starWhite from '../../assets/star-white_2x.png';
 import signWhite from '../../assets/sign-white_2x.png';
 import { TrashIcon } from '@heroicons/react/24/outline';
 
-const Footer = ({ mode, setMode }) => {
+const Footer = ({ mode, setMode, signed, clear }) => {
   const SignBtn = () => {
     return mode === 'sign' ? (
       <button className="footer-icon-btn--active">
@@ -52,7 +53,10 @@ const Footer = ({ mode, setMode }) => {
       <SignBtn />
       <TextBtn />
       <PersonalBtn />
-      <button className="footer-icon-btn" disabled>
+      <button
+        onClick={clear}
+        className={cx('footer-icon-btn', { disabled: signed === false })}
+      >
         <TrashIcon className="w-5" />
         <span>重新簽署</span>
       </button>

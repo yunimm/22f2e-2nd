@@ -89,7 +89,6 @@ const Output = () => {
 
 	/** 監聽刪除 */
 	const handleUserKeyPress = (e) => {
-		console.log(e, e.keyCode);
 		if (e.keyCode === 8) {
 			deleteSelectedObjectsFromCanvas();
 		}
@@ -97,13 +96,9 @@ const Output = () => {
 
 	/** 刪除選取物件 */
 	const deleteSelectedObjectsFromCanvas = () => {
-		console.log("canvas", canvas);
 		if (canvas) {
 			const activeObject = canvas.getActiveObject();
 			const activeGroup = canvas.getActiveGroup();
-
-			console.log("activeObject", activeObject);
-			console.log("activeGroup", activeGroup);
 			if (activeObject) {
 				canvas.remove(activeObject);
 			} else if (activeGroup) {

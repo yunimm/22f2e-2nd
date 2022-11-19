@@ -12,10 +12,6 @@ import DownloadBtn from './components/DownloadBtn/DownloadBtn';
 import Stepper from './components/Stepper/Stepper';
 import SettingSignModal from './components/Modal/SettingSignModal';
 import Test from './components/TEST';
-// import Output from './components/Output';
-// import Sign from './components/Sign';
-// import UploadFile2 from './components/UploadFile2';
-
 import EmptyFile from './components/EmptyFile/EmptyFile';
 import ShowUploadPdf from './components/ShowUploadPdf';
 import * as pdf from 'pdfjs-dist';
@@ -25,25 +21,27 @@ const doc = new jsPDF();
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 function App() {
-  const [focus, setFocus] = useState('1');
   const [showHamburger, setShowHamburger] = useState(false);
-  const [step, setStep] = useState('1');
-
   const [isUpload, setIsUpload] = useState(false);
-  const [mode, setMode] = useState(null);
   const [showFileList, setFileList] = useState(false);
+  const [focus, setFocus] = useState('1');
+  const [step, setStep] = useState('1');
+  // 依據狀態顯示不同彈窗： sign / text / personal //
+  const [mode, setMode] = useState(null);
 
-  const [cached, setCached] = useState(null);
+  // 儲存上傳的檔案 e.target.files[0]; //
+  const [uploadPdf, setUploadPdf] = useState(null);
+  const [fileName, setFileName] = useState('上傳簽署檔案名稱.pdf');
+
+  // 設定完臨時簽名檔後 //
+  const [signed, setSigned] = useState(false);
+  // new fabric //
+  const [fa, setFa] = useState(null);
+  const [localSrc, setLocalSrc] = useState(null);
 
   useEffect(() => {
     setShowHamburger(false);
   }, [focus]);
-
-  const [fileName, setFileName] = useState('上傳簽署檔案名稱.pdf');
-  const [uploadPdf, setUploadPdf] = useState(null);
-  // 設定完臨時簽名檔後
-  const [signed, setSigned] = useState(false);
-  const [fa, setFa] = useState(null);
 
   const onUploadFile = (e) => {
     const file = e.target.files[0];
@@ -53,7 +51,6 @@ function App() {
   };
 
   const onPasteSign = () => {
-    // const sign = document.querySelector('.sign');
     const src = localStorage.getItem('img');
     if (fa) {
       fabric.Image.fromURL(src, function (image) {
@@ -64,6 +61,15 @@ function App() {
         fa.add(image).renderAll();
       });
     }
+
+    setSigned(true);
+  };
+
+  const clear = () => {
+    while (fa._objects[0]) {
+      fa.remove(fa._objects[0]);
+    }
+    setSigned(false);
   };
   const onDownloadFile = () => {
     // 將 canvas 存為圖片
@@ -72,10 +78,9 @@ function App() {
     const width = doc.internal.pageSize.width;
     const height = doc.internal.pageSize.height;
     doc.addImage(image, 'png', 0, 0, width, height);
-
-    // 將檔案取名並下載
     doc.save('download.pdf');
   };
+
   return (
     <div className="App">
       <div className="bg-gray-200 h-screen">
@@ -118,35 +123,35 @@ function App() {
                 fileName={fileName}
                 uploadPdf={uploadPdf}
                 isUpload={isUpload}
-                setCached={setCached}
                 focus={focus}
                 step={step}
                 setIsUpload={setIsUpload}
                 setFa={setFa}
               />
             )}
-            {/* 第三步：將pdf轉成圖檔 */}
+            {/* 第三步：將pdf轉成圖檔,並顯示在畫面上 */}
             {isUpload && (
               <ShowUploadPdf
                 step={step}
                 fileName={fileName}
                 uploadPdf={uploadPdf}
                 isUpload={isUpload}
-                signed={signed}
                 onPasteSign={onPasteSign}
                 setFa={setFa}
                 fa={fa}
               />
             )}
-
-            {/* <div className="relative h-full bg-gray py-2.5 px-5">
-							<FileList showFileList={showFileList} setFileList={setFileList} />
-						</div> */}
             {step !== '1' && (
               <div className="absolute bottom-0 z-50 w-full">
-                <Footer mode={mode} setMode={setMode} />
+                <Footer
+                  mode={mode}
+                  setMode={setMode}
+                  signed={signed}
+                  clear={clear}
+                />
               </div>
             )}
+
             {mode === 'sign' ? (
               <SignModal
                 setMode={setMode}
@@ -155,6 +160,7 @@ function App() {
                 onPasteSign={onPasteSign}
               />
             ) : null}
+
             <TextModal setMode={setMode} show={mode === 'text'} />
             <PersonalModal setMode={setMode} show={mode === 'personal'} />
 

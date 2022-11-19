@@ -41,7 +41,6 @@ const SignModal = ({ show, setMode, onPasteSign }) => {
 
   // 取得滑鼠 / 手指在畫布上的位置
   const getPaintPosition = (e) => {
-    console.log('onMouseDown');
     const canvasSize = canvasCurrent.getBoundingClientRect();
 
     if (e.type === 'mousemove') {
