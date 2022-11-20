@@ -21,13 +21,15 @@ import SettingSignModal from './components/Modal/SettingSignModal';
 import EmptyFile from './components/EmptyFile/EmptyFile';
 import ShowUploadPdf from './components/ShowUploadPdf';
 import { AlertTwoButton } from './components/Alert/Alert';
+
+import Loading from './components/Loading/Loading';
 const doc = new jsPDF();
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 function App() {
   const [showHamburger, setShowHamburger] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
-  const [showFileList, setFileList] = useState(false);
+  // const [showFileList, setFileList] = useState(false);
   const [focus, setFocus] = useState('1');
   const [step, setStep] = useState('0');
   // 依據狀態顯示不同彈窗： sign / text / personal //
@@ -45,7 +47,7 @@ function App() {
   const [userMail, setUserMail] = useState(null);
   const [userTel, setUserTel] = useState(null);
   const [userAdr, setUserAdr] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setShowHamburger(false);
   }, [focus]);
@@ -85,8 +87,10 @@ function App() {
       imageHeight: 185,
       imageAlt: 'A sign success image',
       title: '恭喜您完成簽屬!',
+      buttonsStyling: false,
       allowOutsideClick: false,
       showCancelButton: true,
+      allowEscapeKey: false,
       text: '請盡快下載已完成簽署的檔案。若開始新檔案簽署，此檔案將不被保留。',
       // 取消
       confirmButtonText: '瀏覽簽署內容',
@@ -101,7 +105,6 @@ function App() {
       if (result.isDismissed) {
         onDownloadFile();
       } else {
-        alert('停留在step3');
       }
     });
   };
@@ -115,6 +118,8 @@ function App() {
       text: '已下載完成您的簽署檔案。請點選新檔案，開始簽署下一份文件。',
       allowOutsideClick: false,
       showCancelButton: true,
+      buttonsStyling: false,
+      allowEscapeKey: false,
       // 取消
       confirmButtonText: '明白了!',
       // 確認
@@ -162,6 +167,9 @@ function App() {
     setFileName(file.name);
     setUploadPdf(file);
     setIsUpload(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
   };
 
   const onPasteSign = (name) => {
@@ -236,17 +244,19 @@ function App() {
                   onPrevStep={onPrevStep}
                   onFinish={onFinish}
                   backToStep1={backToStep1}
+                  fileName={fileName}
                 />
                 <Stepper step={step} />
               </div>
 
               {/* 第一步：上傳檔案 */}
+
               {!isUpload && focus === '1' && (
                 <EmptyFile onUploadFile={onUploadFile} />
               )}
-
+              {isUpload && isLoading && <Loading />}
               {/* 第二步：預覽上傳資料(pdf=image) */}
-              {step === '1' && (
+              {step === '1' && !isLoading && (
                 <Step1
                   fileName={fileName}
                   uploadPdf={uploadPdf}
@@ -258,7 +268,7 @@ function App() {
                 />
               )}
               {/* 第三步：將pdf轉成圖檔,並顯示在畫面上 */}
-              {isUpload && (
+              {isUpload && !isLoading && (
                 <ShowUploadPdf
                   step={step}
                   fileName={fileName}

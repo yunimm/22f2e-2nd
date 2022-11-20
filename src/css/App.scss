@@ -329,48 +329,60 @@ footer {
 }
 .swal2-actions {
   width: 100%;
-  .confirm-custom-col {
-    width: 100%;
-    background-color: white;
-    border: 1px solid black;
-    color: black;
-    &:focus {
-      box-shadow: none;
-      border-radius: 6px;
-    }
-  }
-  .cancel-custom-col {
-    width: 100%;
-    background-color: black;
-    border: 1px solid black;
-    color: white;
-    &:focus {
-      box-shadow: none;
-      border-radius: 6px;
-    }
-  }
-  .confirm-custom-row {
-    width: 40%;
-    background-color: white;
-    border: 1px solid black;
-    color: black;
-    &:focus {
-      box-shadow: none;
-      border-radius: 6px;
-    }
-  }
-  .cancel-custom-row {
-    width: 40%;
-    background-color: black;
-    border: 1px solid black;
-    color: white;
-    &:focus {
-      box-shadow: none;
-      border-radius: 6px;
-    }
+  gap: 10px;
+}
+.confirm-custom-col {
+  width: 100%;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  padding: 10px;
+  border-radius: 6px;
+
+  &:focus {
+    box-shadow: none;
+    border-radius: 6px;
   }
 }
+.cancel-custom-col {
+  width: 100%;
+  background-color: black;
+  border: 1px solid black;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
 
+  &:focus {
+    box-shadow: none;
+    border-radius: 6px;
+  }
+}
+.confirm-custom-row {
+  width: 40%;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  padding: 10px;
+  border-radius: 6px;
+
+  &:focus {
+    box-shadow: none;
+    border-radius: 6px;
+  }
+}
+.cancel-custom-row {
+  width: 40%;
+  background-color: black;
+  border: 1px solid black;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+
+  &:focus {
+    box-shadow: none;
+    border-radius: 6px;
+  }
+}
 .swal2-container.swal2-center > .swal2-popup {
   width: 420px;
   padding: 50px;
@@ -393,5 +405,20 @@ footer {
     flex-direction: column;
     padding: 80px 37px;
     margin: auto 18px;
+  }
+}
+.loading-wrapper {
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .ani {
+    width: 173px;
   }
 }

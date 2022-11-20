@@ -5,6 +5,7 @@ const AlertTwoButton = (btnText, title, text, cb) => {
     icon: 'warning',
     title: title,
     text: text,
+    buttonsStyling: false,
     showDenyButton: false,
     showCancelButton: true,
     allowOutsideClick: false,

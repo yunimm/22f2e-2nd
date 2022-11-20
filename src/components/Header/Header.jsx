@@ -12,6 +12,7 @@ const Header = ({
   onPrevStep,
   onFinish,
   backToStep1,
+  fileName,
 }) => {
   return (
     <div className="flex min-h-[72px] items-center justify-between bg-white px-3 drop-shadow-md">
@@ -27,7 +28,7 @@ const Header = ({
           className="h-9 w-[43.01px]"
         />
       </div>
-      <span className="text-gray-dark">united</span>
+      <span className="text-gray-dark">{fileName}</span>
       <div className="flex h-full items-center justify-end gap-2.5">
         {step > '1' && (
           <button type="button" className="btn-white" onClick={onPrevStep}>
