@@ -7,7 +7,7 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 const Step1 = ({ isUpload, setIsUpload, focus, uploadPdf, fileName }) => {
-  if (focus !== '1') return;
+  // if (focus !== '1') return null;
   const canvasRef = useRef(null);
   const minusRef = useRef(null);
   const plusRef = useRef(null);

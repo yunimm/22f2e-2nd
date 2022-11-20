@@ -11,11 +11,10 @@ import SideBar from '../src/components/SideBar/SideBar';
 import Header from './components/Header/Header';
 import Step1 from '../src/components/Step1/Step1';
 import Footer from './components/Footer/Footer';
-import FileList from './components/FileList/FileList';
+// import FileList from './components/FileList/FileList';
 import DownloadBtn from './components/DownloadBtn/DownloadBtn';
 import Stepper from './components/Stepper/Stepper';
 import SettingSignModal from './components/Modal/SettingSignModal';
-import Test from './components/TEST';
 import EmptyFile from './components/EmptyFile/EmptyFile';
 import ShowUploadPdf from './components/ShowUploadPdf';
 import { AlertTwoButton } from './components/Alert/Alert';
@@ -26,7 +25,7 @@ function App() {
   const [showHamburger, setShowHamburger] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
   const [showFileList, setFileList] = useState(false);
-  const [focus, setFocus] = useState('2');
+  const [focus, setFocus] = useState('1');
   const [step, setStep] = useState('1');
   // 依據狀態顯示不同彈窗： sign / text / personal //
   const [mode, setMode] = useState(null);
@@ -214,13 +213,10 @@ function App() {
                 showHamburger={showHamburger}
                 onPrevStep={onPrevStep}
                 onFinish={onFinish}
+                backToStep1={backToStep1}
               />
               <Stepper step={step} />
             </div>
-            {/* <Test /> */}
-            {/* <Sign />
-            <UploadFile2 />
-            <Output /> */}
 
             {/* 第一步：上傳檔案 */}
             {!isUpload && focus === '1' && (
@@ -252,7 +248,7 @@ function App() {
                 focus={focus}
               />
             )}
-            {step !== '1' && (
+            {step === '2' && (
               <div className="absolute bottom-0 z-50 w-full">
                 <Footer
                   mode={mode}

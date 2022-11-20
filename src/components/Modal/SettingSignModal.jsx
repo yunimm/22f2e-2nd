@@ -19,7 +19,7 @@ const SettingSignModal = ({ focus }) => {
     setCanvasCurrent(canvas);
     const ctx = canvas.getContext('2d');
     setCtxVal(ctx);
-  }, []);
+  }, [focus]);
 
   useEffect(() => {
     if (canvasRef_sign.current) {
@@ -95,13 +95,13 @@ const SettingSignModal = ({ focus }) => {
     // 圖片儲存的類型選擇 png ，並將值放入 img 的 src
     const newImg = canvas.toDataURL('image/png');
     setNewImg(newImg);
-    localStorage.setItem('img', newImg);
+    localStorage.setItem('img-personal', newImg);
   };
 
   return (
     <div className={cx({ hidden: focus === '1' })}>
       <div className="h-screen w-full min-w-[540px] bg-gray py-10 px-[18px]">
-        <div className="h-[600px] w-full rounded-[10px] bg-white drop-shadow-md">
+        <div className="min-h-[600px] w-full rounded-[10px] bg-white drop-shadow-md">
           <form className="flex flex-col gap-4 p-5">
             <label>
               <h5 className="ml-3">信箱</h5>
@@ -130,14 +130,14 @@ const SettingSignModal = ({ focus }) => {
             <div>
               <ul className="flex gap-3 pl-3 text-lg">
                 <li>
-                  <a className="text-blue">簽名1</a>
+                  <a className="text-blue">簽名</a>
                 </li>
                 {/* <span className="text-md text-gray">|</span>
               <li>
                 <a>簽名2</a>
               </li> */}
               </ul>
-              <div className="min-w-[390px] rounded-md border">
+              <div className="min-h-[140px] min-w-[390px] rounded-md border">
                 <div
                   id="canvas-wrapper"
                   className="rounded-t-md border-b border-blue-dark bg-[#EBF3FC]"

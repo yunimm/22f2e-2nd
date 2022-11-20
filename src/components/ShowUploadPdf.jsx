@@ -89,17 +89,15 @@ const ShowUploadPdf = ({ uploadPdf, step, setFa, fa, focus }) => {
   };
 
   return (
-    <div className={cx({ hidden: focus === '2' })}>
-      <div
-        className="max-h-[600px] w-full"
-        style={{ paddingLeft: 'calc(50% - 250px)' }}
-      >
-        <canvas
-          style={{ left: '50%' }}
-          className="divcanvas left-1/2 max-h-[90%] max-w-[90%]"
-          ref={mainRef}
-        ></canvas>
-      </div>
+    <div
+      className={cx('max-h-[600px] w-full bg-gray', { hidden: focus === '2' })}
+      style={{ paddingLeft: 'calc(50% - 250px)' }}
+    >
+      <canvas
+        style={{ left: '50%' }}
+        className="divcanvas left-1/2 max-h-[90%] max-w-[90%]"
+        ref={mainRef}
+      ></canvas>
     </div>
   );
 };

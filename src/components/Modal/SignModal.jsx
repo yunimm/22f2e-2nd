@@ -6,10 +6,8 @@ const SignModal = ({ show, setMode, onPasteSign }) => {
   const [lineWidth, setLineWidth] = useState(4);
   const [lineColor, setLineColor] = useState('#000000');
   const [newImg, setNewImg] = useState(null);
-
   const [canvasCurrent, setCanvasCurrent] = useState(null);
   const [ctxVal, setCtxVal] = useState(null);
-
   const canvasRef_signModal = useRef(null);
   const clearRef = useRef(null);
 
@@ -125,14 +123,32 @@ const SignModal = ({ show, setMode, onPasteSign }) => {
         </div>
         <div className="flex gap-2.5 border-b border-gray py-2.5 px-[14px]">
           <span>顏色</span>
-          <span className="btn-color bg-black" />
-          <span className="btn-color bg-[#0272A1]" />
-          <span className="btn-color bg-[#DA2F2F]" />
+          <span
+            onClick={() => setLineColor('#000000')}
+            className="btn-color bg-black"
+          />
+          <span
+            onClick={() => setLineColor('#0272A1')}
+            className="btn-color bg-[#0272A1]"
+          />
+          <span
+            onClick={() => setLineColor('#DA2F2F')}
+            className="btn-color bg-[#DA2F2F]"
+          />
           <span>大小</span>
           <div className="flex items-center gap-2.5">
-            <span className="btn-size h-3 w-3" />
-            <span className="btn-size h-[18px] w-[18px]" />
-            <span className="btn-size h-6 w-6" />
+            <span
+              onClick={() => setLineWidth(2)}
+              className="btn-size h-3 w-3"
+            />
+            <span
+              onClick={() => setLineWidth(4)}
+              className="btn-size h-[18px] w-[18px]"
+            />
+            <span
+              onClick={() => setLineWidth(6)}
+              className="btn-size h-6 w-6"
+            />
           </div>
         </div>
         <div className="flex justify-end gap-2.5 p-2.5">

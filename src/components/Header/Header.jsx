@@ -11,6 +11,7 @@ const Header = ({
   isUpload,
   onPrevStep,
   onFinish,
+  backToStep1,
 }) => {
   return (
     <div className="flex min-h-[72px] items-center justify-between bg-white px-3 drop-shadow-md">
@@ -48,7 +49,7 @@ const Header = ({
           </button>
         )}
         {step === '3' && (
-          <button type="button" className="btn-black">
+          <button onClick={backToStep1} type="button" className="btn-black">
             <span className="font-medium">新檔案</span>
           </button>
         )}

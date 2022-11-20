@@ -33,7 +33,7 @@ const SideBar = ({ setShowHamburger, setFocus, focus }) => {
             <span className="text-white">建立簽名</span>
           </button>
         </div>
-        <div className="flex flex-col items-center justify-center gap-2.5">
+        {/* <div className="flex flex-col items-center justify-center gap-2.5">
           <button className="icon-btn-white">
             <EllipsisHorizontalIcon className="h-6 w-6 rounded-md" />
           </button>
@@ -45,7 +45,7 @@ const SideBar = ({ setShowHamburger, setFocus, focus }) => {
             src={userImage}
             alt="user's image"
           />
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -292,14 +292,11 @@ button {
 .responsive-canvas {
   object-fit: cover;
   overflow: hidden;
-  min-height: 140px;
-  width: 100%;
-  height: 100%;
 }
 #canvas-wrapper {
+  // width: 100%;
   overflow: hidden;
   min-width: 390px;
-  min-height: 140px;
 }
 
 .upper-canvas {
