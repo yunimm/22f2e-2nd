@@ -98,7 +98,7 @@ const SettingSignModal = ({ focus, setUserAdr, setUserMail, setUserTel }) => {
     // 圖片儲存的類型選擇 png ，並將值放入 img 的 src
     const newImg = canvas.toDataURL('image/png');
     setNewImg(newImg);
-    localStorage.setItem('img-personal', newImg);
+    localStorage.setItem('imgPersonal', newImg);
   };
 
   const setMail = (e) => {

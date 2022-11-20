@@ -16,6 +16,7 @@ const PersonalModal = ({
   userTel,
   userAdr,
   setSigned,
+  onPasteSign,
 }) => {
   if (!show) return null;
 
@@ -43,7 +44,9 @@ const PersonalModal = ({
     fa.add(text).renderAll();
     setSigned(true);
   };
-
+  const pasteSign = () => {
+    onPasteSign('imgPersonal');
+  };
   return (
     <div
       className="
@@ -87,7 +90,13 @@ const PersonalModal = ({
               <MapPinIcon className="h-5 w-5" />
               <span>地址</span>
             </button>
-            <button className="btn-group">
+            <button
+              onClick={pasteSign}
+              type="button"
+              className={cx('btn-group', {
+                disabled: localStorage.imgPersonal === undefined,
+              })}
+            >
               <img src={signIcon} alt="icon on screen" className="ml-0.5 w-4" />
               <span>簽名</span>
             </button>

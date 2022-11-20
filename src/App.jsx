@@ -148,8 +148,8 @@ function App() {
     setIsUpload(true);
   };
 
-  const onPasteSign = () => {
-    const src = localStorage.getItem('img');
+  const onPasteSign = (name) => {
+    const src = localStorage.getItem(name);
     if (fa) {
       fabric.Image.fromURL(src, function (image) {
         // 設定簽名出現的位置及大小，後續可調整
@@ -282,6 +282,7 @@ function App() {
               userTel={userTel}
               userAdr={userAdr}
               setSigned={setSigned}
+              onPasteSign={onPasteSign}
             />
 
             {step === '3' && <DownloadBtn onDownloadFile={onDownloadFile} />}

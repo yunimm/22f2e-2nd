@@ -95,7 +95,7 @@ const SignModal = ({ show, setMode, onPasteSign }) => {
     setNewImg(newImg);
     localStorage.setItem('img', newImg);
     setMode(null);
-    onPasteSign();
+    onPasteSign('img');
   };
 
   return (
