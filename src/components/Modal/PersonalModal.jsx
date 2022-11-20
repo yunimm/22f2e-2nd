@@ -1,4 +1,5 @@
-import React from 'react';
+import { useState } from 'react';
+import cx from 'classnames';
 import { fabric } from 'fabric';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import {
@@ -7,16 +8,42 @@ import {
   MapPinIcon,
 } from '@heroicons/react/24/outline';
 import signIcon from '../../assets/createSign-black_2x.png';
-const PersonalModal = ({ show, setMode, fa }) => {
+const PersonalModal = ({
+  show,
+  setMode,
+  fa,
+  userMail,
+  userTel,
+  userAdr,
+  setSigned,
+}) => {
   if (!show) return null;
 
-  const textTest = () => {
-    const text = new fabric.IText('Hello 鐵人賽', {
+  const pasteMail = (e) => {
+    const text = new fabric.IText(userMail, {
       left: 200,
+      top: 100,
+    });
+    fa.add(text).renderAll();
+    setSigned(true);
+  };
+  const pasteTel = (e) => {
+    const text = new fabric.IText(userTel, {
+      left: 300,
       top: 200,
     });
     fa.add(text).renderAll();
+    setSigned(true);
   };
+  const pasteAdr = (e) => {
+    const text = new fabric.IText(userAdr, {
+      left: 400,
+      top: 300,
+    });
+    fa.add(text).renderAll();
+    setSigned(true);
+  };
+
   return (
     <div
       className="
@@ -33,21 +60,36 @@ const PersonalModal = ({ show, setMode, fa }) => {
         </div>
         <div className="flex h-[76px] justify-center py-5 px-2.5">
           <div className="flex flex-col gap-2.5 ">
-            <button onClick={textTest} type="button" className="btn-group">
+            <button
+              name="mail"
+              onClick={pasteMail}
+              type="button"
+              className={cx('btn-group', { disabled: userMail === null })}
+            >
               <EnvelopeIcon className="h-5 w-5" />
               <span>信箱</span>
             </button>
-            <button className="btn-group">
+            <button
+              name="tel"
+              onClick={pasteTel}
+              type="button"
+              className={cx('btn-group', { disabled: userTel === null })}
+            >
               <PhoneIcon className="h-5 w-5" />
               <span>電話</span>
             </button>
-            <button className="btn-group">
+            <button
+              name="adr"
+              onClick={pasteAdr}
+              type="button"
+              className={cx('btn-group', { disabled: userAdr === null })}
+            >
               <MapPinIcon className="h-5 w-5" />
               <span>地址</span>
             </button>
             <button className="btn-group">
               <img src={signIcon} alt="icon on screen" className="ml-0.5 w-4" />
-              <span>簽名1</span>
+              <span>簽名</span>
             </button>
             {/* <button className="btn-group">
               <img src={signIcon} alt="icon on screen" className="w-4 ml-0.5" />

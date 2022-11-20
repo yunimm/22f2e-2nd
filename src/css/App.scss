@@ -305,3 +305,12 @@ button {
 .upper-canvas {
   border: none;
 }
+footer {
+  display: flex;
+  height: 58px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  padding: 9px auto;
+}

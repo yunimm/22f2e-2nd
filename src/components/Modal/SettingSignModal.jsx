@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import cx from 'classnames';
-const SettingSignModal = ({ focus }) => {
+const SettingSignModal = ({ focus, setUserAdr, setUserMail, setUserTel }) => {
   const [locations, setLocations] = useState([]);
   const [isPainting, setPainting] = useState(false);
   const [lineWidth, setLineWidth] = useState(4);
@@ -8,6 +8,9 @@ const SettingSignModal = ({ focus }) => {
   const [newImg, setNewImg] = useState(null);
   const [canvasCurrent, setCanvasCurrent] = useState(null);
   const [ctxVal, setCtxVal] = useState(null);
+  // const [userMailST, setUserMailST] = useState(false);
+  // const [userTelST, setUserTelST] = useState(false);
+  // const [userAdrST, setUserAdrST] = useState(false);
   const canvasRef_sign = useRef(null);
   const clearRef = useRef(null);
 
@@ -98,6 +101,25 @@ const SettingSignModal = ({ focus }) => {
     localStorage.setItem('img-personal', newImg);
   };
 
+  const setMail = (e) => {
+    // if (e.keyCode === 13) {
+    //   console.log('setting');
+    // }
+    setUserMail(e.target.value);
+  };
+  const setTel = (e) => {
+    // if (e.keyCode === 13) {
+    //   console.log('setting');
+    // }
+    setUserTel(e.target.value);
+  };
+  const setAdr = (e) => {
+    // if (e.keyCode === 13) {
+    //   console.log('setting');
+    // }
+    setUserAdr(e.target.value);
+  };
+
   return (
     <div className={cx({ hidden: focus === '1' })}>
       <div className="h-screen w-full min-w-[540px] bg-gray py-10 px-[18px]">
@@ -106,6 +128,7 @@ const SettingSignModal = ({ focus }) => {
             <label>
               <h5 className="ml-3">信箱</h5>
               <input
+                onKeyDown={setMail}
                 type="text"
                 className="h-9 w-full rounded-md border py-2.5 px-3"
                 placeholder="請輸入欲使用的個人信箱"
@@ -114,6 +137,7 @@ const SettingSignModal = ({ focus }) => {
             <label>
               <h5 className="ml-3">電話</h5>
               <input
+                onKeyDown={setTel}
                 type="text"
                 className="h-9 w-full rounded-md border py-2.5 px-3"
                 placeholder="請輸入欲使用的個人電話"
@@ -122,6 +146,7 @@ const SettingSignModal = ({ focus }) => {
             <label>
               <h5 className="ml-3">地址</h5>
               <input
+                onKeyDown={setAdr}
                 type="text"
                 className="h-9 w-full rounded-md border py-2.5 px-3"
                 placeholder="請輸入欲使用的個人地址"

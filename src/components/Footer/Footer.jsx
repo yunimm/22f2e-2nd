@@ -8,7 +8,7 @@ import starWhite from '../../assets/star-white_2x.png';
 import signWhite from '../../assets/sign-white_2x.png';
 import { TrashIcon } from '@heroicons/react/24/outline';
 
-const Footer = ({ mode, setMode, signed, clear }) => {
+const Footer = ({ mode, setMode, signed, clear, fa, focus }) => {
   const SignBtn = () => {
     return mode === 'sign' ? (
       <button className="footer-icon-btn--active">
@@ -48,11 +48,18 @@ const Footer = ({ mode, setMode, signed, clear }) => {
       </button>
     );
   };
+  const textToFaImg = (info) => {
+    const text = new fabric.IText(info, {
+      left: 200,
+      top: 200,
+    });
+    fa.add(text).renderAll();
+  };
   return (
-    <footer className="flex h-[58px] w-full items-center justify-around bg-white py-[9px]">
+    <footer className={cx({ hidden: focus === '2' })}>
       <SignBtn />
-      <TextBtn />
-      <PersonalBtn />
+      <TextBtn fa={fa} textToFaImg={textToFaImg} />
+      <PersonalBtn textToFaImg={textToFaImg} />
       <button
         onClick={clear}
         className={cx('footer-icon-btn', { disabled: signed === false })}

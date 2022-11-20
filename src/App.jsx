@@ -34,10 +34,14 @@ function App() {
   const [uploadPdf, setUploadPdf] = useState(null);
   const [fileName, setFileName] = useState('上傳簽署檔案名稱.pdf');
 
-  // 設定完臨時簽名檔後 //
+  // 設定完簽名檔後 //
   const [signed, setSigned] = useState(false);
   // new fabric //
   const [fa, setFa] = useState(null);
+  //個人化設定
+  const [userMail, setUserMail] = useState(null);
+  const [userTel, setUserTel] = useState(null);
+  const [userAdr, setUserAdr] = useState(null);
 
   useEffect(() => {
     setShowHamburger(false);
@@ -251,33 +255,45 @@ function App() {
             {step === '2' && (
               <div className="absolute bottom-0 z-50 w-full">
                 <Footer
+                  fa={fa}
                   mode={mode}
                   setMode={setMode}
                   signed={signed}
                   clear={clear}
+                  focus={focus}
                 />
               </div>
             )}
 
             {mode === 'sign' ? (
               <SignModal
+                onPasteSign={onPasteSign}
                 setMode={setMode}
                 show={mode === 'sign'}
-                setSigned={setSigned}
-                onPasteSign={onPasteSign}
               />
             ) : null}
 
-            <TextModal setMode={setMode} show={mode === 'text'} />
+            <TextModal fa={fa} setMode={setMode} show={mode === 'text'} />
             <PersonalModal
               fa={fa}
               setMode={setMode}
               show={mode === 'personal'}
+              userMail={userMail}
+              userTel={userTel}
+              userAdr={userAdr}
+              setSigned={setSigned}
             />
 
             {step === '3' && <DownloadBtn onDownloadFile={onDownloadFile} />}
-            {/* focus === '2' */}
-            <SettingSignModal focus={focus} />
+            <SettingSignModal
+              setMode={setMode}
+              setSigned={setSigned}
+              onPasteSign={onPasteSign}
+              setUserMail={setUserMail}
+              setUserAdr={setUserAdr}
+              setUserTel={setUserTel}
+              focus={focus}
+            />
           </div>
         </div>
       </div>
