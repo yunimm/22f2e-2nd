@@ -7,7 +7,7 @@ const Loading = () => {
       container: document.querySelector('.ani'),
       animationData: ani,
       renderer: 'svg',
-      loop: 4,
+      loop: 3,
       autoplay: true,
     });
     return () => logoAni.destroy();
