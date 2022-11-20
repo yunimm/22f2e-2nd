@@ -4,6 +4,7 @@ import * as pdf from 'pdfjs-dist';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.js?url';
 import { jsPDF } from 'jspdf';
 import Swal from 'sweetalert2';
+import Login from '../src/components/Login/Login';
 import SignModal from '../src/components/Modal/SignModal';
 import TextModal from '../src/components/Modal/TextModal';
 import PersonalModal from '../src/components/Modal/PersonalModal';
@@ -28,7 +29,7 @@ function App() {
   const [isUpload, setIsUpload] = useState(false);
   const [showFileList, setFileList] = useState(false);
   const [focus, setFocus] = useState('1');
-  const [step, setStep] = useState('1');
+  const [step, setStep] = useState('0');
   // 依據狀態顯示不同彈窗： sign / text / personal //
   const [mode, setMode] = useState(null);
 
@@ -208,110 +209,113 @@ function App() {
   return (
     <div className="App">
       <div className="h-screen bg-gray">
-        <div className="relative flex">
-          <div
-            className={cx(
-              'absolute z-10 flex h-screen',
-              !showHamburger && 'hidden',
-            )}
-          >
-            <SideBar
-              focus={focus}
-              setFocus={setFocus}
-              setShowHamburger={setShowHamburger}
-            />
-          </div>
-
-          <div className="flex h-screen w-full flex-col">
-            <div>
-              <Header
-                isUpload={isUpload}
-                setStep={setStep}
-                step={step}
+        {step === '0' && <Login setStep={setStep} setFocus={setFocus} />}
+        {step !== '0' && (
+          <div className="relative flex">
+            <div
+              className={cx(
+                'absolute z-10 flex h-screen',
+                !showHamburger && 'hidden',
+              )}
+            >
+              <SideBar
+                focus={focus}
+                setFocus={setFocus}
                 setShowHamburger={setShowHamburger}
-                showHamburger={showHamburger}
-                onPrevStep={onPrevStep}
-                onFinish={onFinish}
-                backToStep1={backToStep1}
               />
-              <Stepper step={step} />
             </div>
 
-            {/* 第一步：上傳檔案 */}
-            {!isUpload && focus === '1' && (
-              <EmptyFile onUploadFile={onUploadFile} />
-            )}
+            <div className="flex h-screen w-full flex-col">
+              <div>
+                <Header
+                  isUpload={isUpload}
+                  setStep={setStep}
+                  step={step}
+                  setShowHamburger={setShowHamburger}
+                  showHamburger={showHamburger}
+                  onPrevStep={onPrevStep}
+                  onFinish={onFinish}
+                  backToStep1={backToStep1}
+                />
+                <Stepper step={step} />
+              </div>
 
-            {/* 第二步：預覽上傳資料(pdf=image) */}
-            {step === '1' && (
-              <Step1
-                fileName={fileName}
-                uploadPdf={uploadPdf}
-                isUpload={isUpload}
-                focus={focus}
-                step={step}
-                setIsUpload={setIsUpload}
-                setFa={setFa}
-              />
-            )}
-            {/* 第三步：將pdf轉成圖檔,並顯示在畫面上 */}
-            {isUpload && (
-              <ShowUploadPdf
-                step={step}
-                fileName={fileName}
-                uploadPdf={uploadPdf}
-                isUpload={isUpload}
-                onPasteSign={onPasteSign}
-                setFa={setFa}
-                fa={fa}
-                focus={focus}
-              />
-            )}
-            {step === '2' && (
-              <div className="absolute bottom-0 z-50 w-full">
-                <Footer
+              {/* 第一步：上傳檔案 */}
+              {!isUpload && focus === '1' && (
+                <EmptyFile onUploadFile={onUploadFile} />
+              )}
+
+              {/* 第二步：預覽上傳資料(pdf=image) */}
+              {step === '1' && (
+                <Step1
+                  fileName={fileName}
+                  uploadPdf={uploadPdf}
+                  isUpload={isUpload}
+                  focus={focus}
+                  step={step}
+                  setIsUpload={setIsUpload}
+                  setFa={setFa}
+                />
+              )}
+              {/* 第三步：將pdf轉成圖檔,並顯示在畫面上 */}
+              {isUpload && (
+                <ShowUploadPdf
+                  step={step}
+                  fileName={fileName}
+                  uploadPdf={uploadPdf}
+                  isUpload={isUpload}
+                  onPasteSign={onPasteSign}
+                  setFa={setFa}
                   fa={fa}
-                  mode={mode}
-                  setMode={setMode}
-                  signed={signed}
-                  clear={clear}
                   focus={focus}
                 />
-              </div>
-            )}
+              )}
+              {step === '2' && (
+                <div className="absolute bottom-0 z-50 w-full">
+                  <Footer
+                    fa={fa}
+                    mode={mode}
+                    setMode={setMode}
+                    signed={signed}
+                    clear={clear}
+                    focus={focus}
+                  />
+                </div>
+              )}
 
-            {mode === 'sign' ? (
-              <SignModal
-                onPasteSign={onPasteSign}
+              {mode === 'sign' ? (
+                <SignModal
+                  onPasteSign={onPasteSign}
+                  setMode={setMode}
+                  show={mode === 'sign'}
+                />
+              ) : null}
+
+              <TextModal fa={fa} setMode={setMode} show={mode === 'text'} />
+              <PersonalModal
+                fa={fa}
                 setMode={setMode}
-                show={mode === 'sign'}
+                show={mode === 'personal'}
+                userMail={userMail}
+                userTel={userTel}
+                userAdr={userAdr}
+                setSigned={setSigned}
+                onPasteSign={onPasteSign}
               />
-            ) : null}
 
-            <TextModal fa={fa} setMode={setMode} show={mode === 'text'} />
-            <PersonalModal
-              fa={fa}
-              setMode={setMode}
-              show={mode === 'personal'}
-              userMail={userMail}
-              userTel={userTel}
-              userAdr={userAdr}
-              setSigned={setSigned}
-              onPasteSign={onPasteSign}
-            />
-
-            {step === '3' && <DownloadBtn onDownloadFile={onDownloadFile} />}
-            <SettingSignModal
-              setMode={setMode}
-              setSigned={setSigned}
-              onPasteSign={onPasteSign}
-              setUserMail={setUserMail}
-              setUserAdr={setUserAdr}
-              setUserTel={setUserTel}
-              focus={focus}
-            />
+              {step === '3' && <DownloadBtn onDownloadFile={onDownloadFile} />}
+              <SettingSignModal
+                setMode={setMode}
+                setSigned={setSigned}
+                onPasteSign={onPasteSign}
+                setUserMail={setUserMail}
+                setUserAdr={setUserAdr}
+                setUserTel={setUserTel}
+                focus={focus}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
