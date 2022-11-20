@@ -8,6 +8,8 @@ import SignModal from '../src/components/Modal/SignModal';
 import TextModal from '../src/components/Modal/TextModal';
 import PersonalModal from '../src/components/Modal/PersonalModal';
 import SideBar from '../src/components/SideBar/SideBar';
+import alertImg01 from '../src/assets/alertImg01.png';
+import alertImg02 from '../src/assets/alertImg02.png';
 import Header from './components/Header/Header';
 import Step1 from '../src/components/Step1/Step1';
 import Footer from './components/Footer/Footer';
@@ -76,17 +78,23 @@ function App() {
     }
   };
   const alertCompletedSign = () => {
-    setStep('3');
     Swal.fire({
-      imageUrl: 'https://placeholder.pics/svg/300x1500',
-      imageHeight: 500,
-      imageAlt: 'A tall image',
+      imageUrl: alertImg01,
+      imageWidth: 312,
+      imageHeight: 185,
+      imageAlt: 'A sign success image',
       title: '恭喜您完成簽屬!',
+      allowOutsideClick: false,
       showCancelButton: true,
+      text: '請盡快下載已完成簽署的檔案。若開始新檔案簽署，此檔案將不被保留。',
       // 取消
       confirmButtonText: '瀏覽簽署內容',
       // 確認
       cancelButtonText: '立即下載PDF檔',
+      customClass: {
+        confirmButton: 'confirm-custom-col',
+        cancelButton: 'cancel-custom-col',
+      },
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isDismissed) {
@@ -98,15 +106,22 @@ function App() {
   };
   const alertDownloadedSuccess = () => {
     Swal.fire({
-      imageUrl: 'https://placeholder.pics/svg/300x1500',
-      imageHeight: 500,
-      imageAlt: 'A tall image',
+      imageUrl: alertImg02,
+      imageWidth: 312,
+      imageHeight: 185,
+      imageAlt: 'A download success image',
       title: '下載檔案成功!',
+      text: '已下載完成您的簽署檔案。請點選新檔案，開始簽署下一份文件。',
+      allowOutsideClick: false,
       showCancelButton: true,
       // 取消
       confirmButtonText: '明白了!',
       // 確認
       cancelButtonText: '立即簽署新文件',
+      customClass: {
+        confirmButton: 'confirm-custom-col',
+        cancelButton: 'cancel-custom-col',
+      },
     }).then((result) => {
       if (result.isDismissed) {
         AlertTwoButton(

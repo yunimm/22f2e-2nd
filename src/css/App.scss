@@ -314,3 +314,64 @@ footer {
   background-color: white;
   padding: 9px auto;
 }
+
+.swal2-icon.swal2-warning {
+  color: #fb5c5c;
+  border-color: #fb5c5c;
+}
+.swal2-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #5c6b72;
+}
+.swal2-html-container {
+  font-size: 16px;
+}
+.swal2-actions {
+  width: 100%;
+  .confirm-custom-col {
+    width: 100%;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    &:focus {
+      box-shadow: none;
+      border-radius: 6px;
+    }
+  }
+  .cancel-custom-col {
+    width: 100%;
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    &:focus {
+      box-shadow: none;
+      border-radius: 6px;
+    }
+  }
+  .confirm-custom-row {
+    width: 40%;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    &:focus {
+      box-shadow: none;
+      border-radius: 6px;
+    }
+  }
+  .cancel-custom-row {
+    width: 40%;
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    &:focus {
+      box-shadow: none;
+      border-radius: 6px;
+    }
+  }
+}
+
+.swal2-container.swal2-center > .swal2-popup {
+  width: 420px;
+  padding: 50px;
+}
